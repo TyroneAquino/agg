@@ -9,6 +9,9 @@
 
 import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
+import 'package:agg/widgets/widgets.dart';
+import 'package:agg/constants/app_themes.dart';
+import 'package:agg/enums/enums.dart';
 
 void main() {
   runApp(
@@ -50,7 +53,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         useMaterial3: true,
         colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFF6750A4)),
-      ),
+      ),   
 
       home: const HomeScreen(),
     );
@@ -61,84 +64,69 @@ class MyApp extends StatelessWidget {
 ///
 /// It is a StatefulWidget because it remembers something that changes: the
 /// counter. A screen that never changes can be a StatelessWidget instead.
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
 
-  @override
-  State<HomeScreen> createState() => _HomeScreenState();
+class HomeScreen extends StatefulWidget{
+    const HomeScreen({super.key});
+
+    @override
+    State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
-  // State: a plain field. Changing it does nothing on its own; the screen only
-  // redraws when you change it inside setState.
-  int _taps = 0;
+class _HomeScreenState extends State<HomeScreen>{
+    
+    @override
+    Widget build(BuildContext context){
+      return Scaffold(
+        backgroundColor: AppColors.background,
+        body: Center(
+          child: Padding(
+            padding: EdgeInsets.all(AppSpacing.bs),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children:[
 
-  void _handleTap() {
-    setState(() {
-      _taps++;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    // Reading colors and text styles from the theme, instead of hardcoding
-    // them, is what keeps every screen looking like the same app.
-    final theme = Theme.of(context);
-
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('My Final Project'),
-        backgroundColor: theme.colorScheme.primaryContainer,
-      ),
-      body: Center(
-        child: Padding(
-          padding: const EdgeInsets.all(24),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Icon(
-                Icons.rocket_launch,
-                size: 72,
-                color: theme.colorScheme.primary,
-              ),
-              const SizedBox(height: 16),
-              Text('It works', style: theme.textTheme.headlineSmall),
-              const SizedBox(height: 8),
-              Text(
-                'This is the starting point of your final project. '
-                'Open lib/main.dart and start changing it.',
-                textAlign: TextAlign.center,
-                style: theme.textTheme.bodyMedium,
-              ),
-              const SizedBox(height: 24),
-              Card(
-                child: Padding(
-                  padding: const EdgeInsets.all(16),
-                  child: Column(
+                SizedBox(height: AppSpacing.xl),
+                SizedBox(
+                  width: double.infinity,
+                  child: Stack(
+                    alignment: Alignment.center,
                     children: [
-                      Text('Taps: $_taps',
-                          style: theme.textTheme.headlineSmall),
-                      const SizedBox(height: 12),
-                      FilledButton.icon(
-                        onPressed: _handleTap,
-                        icon: const Icon(Icons.touch_app),
-                        label: const Text('Tap me'),
+                      Text('A.GG', style: AppTextTheme.mainlogo),
+                      Positioned(
+                        right: AppSpacing.sm,
+                        top: 0,
+                        child: IconButton(
+                          onPressed: (){
+                            showDialog(
+                              context: context,
+                              builder: (context) {
+                                return DialogBox(title:DialogType.settings);
+                              },
+                            );
+                          },
+                          icon: Icon(appIcons['settings'], size: 40, color: AppColors.subBorder),
+                        ),
                       ),
                     ],
                   ),
                 ),
-              ),
-              const SizedBox(height: 24),
-              Text(
-                'Close the app and the count goes back to zero. '
-                'Fixing that is what content/extending-your-app is about.',
-                textAlign: TextAlign.center,
-                style: theme.textTheme.labelSmall,
-              ),
-            ],
+
+                SizedBox(height: AppSpacing.xxl),
+                Text('Choose a Minigame', style: AppTextTheme.bodyLarge),
+
+                SizedBox(height:AppSpacing.xl),
+                MinigameButton(minigame: MinigameType.anime),
+
+                SizedBox(height:AppSpacing.xl),
+                MinigameButton(minigame: MinigameType.character),
+
+                SizedBox(height:AppSpacing.xl),
+                MinigameButton(minigame: MinigameType.soundtrack),
+
+              ],
+            ),
           ),
         ),
-      ),
-    );
-  }
+      );
+    }
 }
