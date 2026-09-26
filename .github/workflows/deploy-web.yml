@@ -95,8 +95,8 @@ jobs:
         # username.github.io/<repo>/, and without it every asset 404s and you get
         # a white screen.
         run: |
-          flutter run -d chrome \
-            --base-href "/${{ github.event.repository.name }}/"
+          flutter build web --release  \
+            --base-href "/${{ github.event.repository.name }}/"\
             --dart-define=SUPABASE_URL="$SUPABASE_URL" \
             --dart-define=SUPABASE_PUBLISHABLE_KEY="$SUPABASE_PUBLISHABLE_KEY"
         # add one --dart-define=NAME=$NAME line per secret you uncommented above
