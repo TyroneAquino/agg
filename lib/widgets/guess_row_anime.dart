@@ -25,7 +25,7 @@ class GuessRowAnime extends StatelessWidget{
         BoxContent(guess.demographic, answer: answer.demographic),
         BoxContent(guess.studio, answer: answer.studio),
         BoxContent(guess.source, answer: answer.source),
-        BoxContent(guess.status, answer: answer.status),
+        BoxContent(guess.format, answer: answer.format),
       ]
     );
   }

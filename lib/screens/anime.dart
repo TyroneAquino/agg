@@ -25,16 +25,14 @@ class _AnimeScreenState extends State<AnimeScreen>{
 
   final ScrollController _scrollController = ScrollController();
 
-  bool guessed = false;
   bool isLoading = true;
 
-  List<String> animeNames = [];
   List<String> dailyList = [];
+  List<String> practiceList = [];
 
   @override
   void initState() {
     super.initState();
-    print('AnimeScreen initState: ${identityHashCode(this)}');
     initializeGame();
   }
 
@@ -42,11 +40,13 @@ class _AnimeScreenState extends State<AnimeScreen>{
     try {
       final results = await Future.wait([
         AnimeRepository.getNames(),
-        DailyAnswerAnime.getAnswer()
+        DailyAnswerAnime.getAnswer(),
+        PracticeAnswerAnime.getAnswer()
       ]);
 
       final names = results[0] as List<String>;
-      final answer = results[1] as Anime;
+      final dailyAnswer = results[1] as Anime;
+      final practiceAnswer = results[2] as Anime;
 
       if (!mounted) return; 
 
@@ -55,22 +55,26 @@ class _AnimeScreenState extends State<AnimeScreen>{
         //inititalized the shared choices only once
         if(!widget.gameState.animeNamesInitialized){
           widget.gameState.dailyAnimeNames = List.from(names);
+          widget.gameState.practiceAnimeNames = List.from(names);
           widget.gameState.animeNamesInitialized = true;
         }
 
         //restore the remaining choices
         dailyList = List.from(widget.gameState.dailyAnimeNames); 
+        practiceList = List.from(widget.gameState.practiceAnimeNames); 
 
         // Keep the answer if it was already loaded.
-        widget.gameState.animeAnswer ??= answer;
+        widget.gameState.dailyAnimeAnswer ??= dailyAnswer;
+        widget.gameState.practiceAnimeAnswer ??= practiceAnswer;
 
         isLoading = false;
       });
 
       //checking
-      print('ANIME NAMES: ${animeNames.length}'); 
+
       print('DAILY LIST: ${dailyList.length}');
-      print('ANSWER: ${answer.name}');
+      print('ANSWER: ${dailyAnswer.name}');
+      print('ANSWER: ${practiceAnswer.name}');
     
     }catch(e){
       print('Failed to initialize anime game: $e');
@@ -84,22 +88,64 @@ class _AnimeScreenState extends State<AnimeScreen>{
   }
 
   Future<void> addGuess(String guess) async {
+    final mode = currentGameMode.value;
+
+    if (mode == GameMode.daily && widget.gameState.dailyAnimeCompleted){
+      return;
+    }
+
+    if (mode == GameMode.practice && widget.gameState.practiceAnimeCompleted){
+      return;
+    }
+
     try{
       final anime = await AnimeRepository.getAnime(guess);
 
       if (!mounted) return; 
 
-    setState(() {
-      widget.gameState.animeGuesses.add(anime);
+      final normalizedGuess = guess.trim().toLowerCase();
 
-      widget.gameState.dailyAnimeNames.removeWhere( (name) => name.trim().toLowerCase() == guess.trim().toLowerCase() );
+      if (mode == GameMode.daily){
+        final answer = widget.gameState.dailyAnimeAnswer;
+        if(answer == null) return;
 
-      dailyList = List.from(widget.gameState.dailyAnimeNames);
-    });
+        final isCorrect = normalizedGuess == answer.name.trim().toLowerCase();
 
-    if (!mounted) return; 
+        setState(() {
+          widget.gameState.dailyAnimeGuesses.add(anime);
 
-    //handleGuess(guess);
+          widget.gameState.dailyAnimeNames.removeWhere( (name) => name.trim().toLowerCase() == normalizedGuess );
+
+          dailyList = List.from(widget.gameState.dailyAnimeNames);
+
+          widget.gameState.dailyAnimeAttempts++;
+
+          if(isCorrect || widget.gameState.dailyAnimeAttempts >= 7){
+            widget.gameState.dailyAnimeCompleted = true;
+          }
+
+          print('DAILY COMPLETED AFTER GUESS: ${widget.gameState.dailyAnimeCompleted}');
+
+        }); 
+
+      } else if (mode == GameMode.practice){
+        final answer = widget.gameState.practiceAnimeAnswer;
+        if(answer == null) return;
+
+        final isCorrect = normalizedGuess == answer.name.trim().toLowerCase();
+
+        setState(() {
+          widget.gameState.practiceAnimeGuesses.add(anime);
+
+          widget.gameState.practiceAnimeNames.removeWhere( (name) => name.trim().toLowerCase() == normalizedGuess );
+
+          practiceList = List.from(widget.gameState.practiceAnimeNames);
+
+          if(isCorrect){
+            widget.gameState.practiceAnimeCompleted = true;
+          }
+        });
+      }
 
     } catch (e){
       print('Failed to get anime guess: $e');
@@ -140,6 +186,10 @@ class _AnimeScreenState extends State<AnimeScreen>{
           child: ValueListenableBuilder<GameMode>(
             valueListenable: currentGameMode,
             builder: (context, currentMode, child){
+
+              final names = currentMode == GameMode.daily ? dailyList : practiceList;
+              final isCompleted = currentMode == GameMode.daily ? widget.gameState.dailyAnimeCompleted : widget.gameState.practiceAnimeCompleted;
+
               return Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children:[
@@ -155,31 +205,57 @@ class _AnimeScreenState extends State<AnimeScreen>{
 
                   SizedBox(height: AppSpacing.xl),
 
-                  //row of guesses
-                  if (widget.gameState.animeGuesses.isNotEmpty) ...[  
-                    Scrollbar(
-                      controller: _scrollController,
-                      thumbVisibility: true,
-                      child: SingleChildScrollView(
-                        scrollDirection: Axis.horizontal,
+                  //row of guesses for daily mode
+                  if(currentMode == GameMode.daily)
+                    if (widget.gameState.dailyAnimeGuesses.isNotEmpty) ...[  
+                      Scrollbar(
                         controller: _scrollController,
-                        child: Padding(
-                          padding: EdgeInsets.only(bottom:36),
-                          child: Column(
-                            spacing: AppSpacing.bs,
-                            children: [
-                              ...widget.gameState.animeGuesses.map(
-                                (anime) => GuessRowAnime(guess: anime, answer: widget.gameState.animeAnswer!),
-                              ),
-                            ],
-                          ),
-                        ),    
+                        thumbVisibility: true,
+                        child: SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          controller: _scrollController,
+                          child: Padding(
+                            padding: EdgeInsets.only(bottom:36),
+                            child: Column(
+                              spacing: AppSpacing.bs,
+                              children: [
+                                ...widget.gameState.dailyAnimeGuesses.map(
+                                  (anime) => GuessRowAnime(guess: anime, answer: widget.gameState.dailyAnimeAnswer!),
+                                ),
+                              ],
+                            ),
+                          ),    
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
 
+                  //row of guesses for practice mode
+                  if(currentMode == GameMode.practice)
+                    if (widget.gameState.practiceAnimeGuesses.isNotEmpty) ...[  
+                      Scrollbar(
+                        controller: _scrollController,
+                        thumbVisibility: true,
+                        child: SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          controller: _scrollController,
+                          child: Padding(
+                            padding: EdgeInsets.only(bottom:36),
+                            child: Column(
+                              spacing: AppSpacing.bs,
+                              children: [
+                                ...widget.gameState.practiceAnimeGuesses.map(
+                                  (anime) => GuessRowAnime(guess: anime, answer: widget.gameState.practiceAnimeAnswer!),
+                                ),
+                              ],
+                            ),
+                          ),    
+                        ),
+                      ),
+                    ],
+  
                   //TExtbox
-                  Textbox(minigame: minigame, names:dailyList, onSubmit: addGuess),
+                  if(!isCompleted)
+                    Textbox(minigame: minigame, names:names, onSubmit: addGuess),
 
                   SizedBox(height: AppSpacing.xl),
 

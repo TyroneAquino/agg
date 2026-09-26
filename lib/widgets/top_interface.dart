@@ -1,5 +1,4 @@
 import 'package:agg/enums/enums.dart';
-import 'package:agg/enums/minigame_type.dart';
 import 'package:flutter/material.dart';
 import 'package:agg/constants/app_themes.dart';
 import 'package:agg/models/minigame.dart';

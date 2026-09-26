@@ -25,11 +25,10 @@ class _CharacterScreenState extends State<CharacterScreen>{
 
   final ScrollController _scrollController = ScrollController();
 
-  bool guessed = false;
   bool isLoading = true;
 
-  List<String> characterNames = [];
   List<String> dailyList = [];
+  List<String> practiceList = [];
 
   @override
   void initState() {
@@ -41,11 +40,13 @@ class _CharacterScreenState extends State<CharacterScreen>{
     try {
       final results = await Future.wait([
         CharacterRepository.getNames(),
-        DailyAnswerCharacter.getAnswer()
+        DailyAnswerCharacter.getAnswer(),
+        PracticeAnswerCharacter.getAnswer()
       ]);
 
       final names = results[0] as List<String>;
-      final answer = results[1] as Character;
+      final dailyAnswer = results[1] as Character;
+      final practiceAnswer = results[2] as Character;
 
       if (!mounted) return; 
 
@@ -54,22 +55,25 @@ class _CharacterScreenState extends State<CharacterScreen>{
         //inititalized the shared choices only once
         if(!widget.gameState.characterNamesInitialized){
           widget.gameState.dailyCharacterNames = List.from(names);
+          widget.gameState.practiceCharacterNames = List.from(names);
           widget.gameState.characterNamesInitialized = true;
         }
 
         //restore the remaining choices
         dailyList = List.from(widget.gameState.dailyCharacterNames); 
+        practiceList =  List.from(widget.gameState.practiceCharacterNames); 
 
         // Keep the answer if it was already loaded.
-        widget.gameState.characterAnswer ??= answer;
+        widget.gameState.dailyCharacterAnswer ??= dailyAnswer;
+        widget.gameState.practiceCharacterAnswer ??= practiceAnswer;
 
         isLoading = false;
       });
 
       //checking
-      print('ANIME NAMES: ${characterNames.length}'); 
       print('DAILY LIST: ${dailyList.length}');
-      print('ANSWER: ${answer.name}');
+      print('ANSWER: ${dailyAnswer.name}');
+      print('ANSWER: ${practiceAnswer.name}');
     
     }catch(e){
       print('Failed to initialize character game: $e');
@@ -83,29 +87,70 @@ class _CharacterScreenState extends State<CharacterScreen>{
   }
 
   Future<void> addGuess(String guess) async {
+    final mode = currentGameMode.value;
+
+    if (mode == GameMode.daily && widget.gameState.dailyCharacterCompleted){
+      return;
+    }
+
+    if (mode == GameMode.practice && widget.gameState.practiceCharacterCompleted){
+      return;
+    }
+
     try{
       final character = await CharacterRepository.getCharacter(guess);
 
       if (!mounted) return; 
 
-    setState(() {
-      widget.gameState.characterGuesses.add(character);
+      final normalizedGuess = guess.trim().toLowerCase();
 
-      widget.gameState.dailyCharacterNames.removeWhere( (name) => name.trim().toLowerCase() == guess.trim().toLowerCase() );
+      if (mode == GameMode.daily){
+        final answer = widget.gameState.dailyCharacterAnswer;
+        if(answer == null) return;
 
-      dailyList = List.from(widget.gameState.dailyCharacterNames);
-    });
+        final isCorrect = normalizedGuess == answer.name.trim().toLowerCase();
 
-    if (!mounted) return; 
+        setState(() {
+          widget.gameState.dailyCharacterGuesses.add(character);
 
-    //handleGuess(guess);
+          widget.gameState.dailyCharacterNames.removeWhere( (name) => name.trim().toLowerCase() == guess.trim().toLowerCase() );
+
+          dailyList = List.from(widget.gameState.dailyCharacterNames);
+
+          widget.gameState.dailyCharacterAttempts++;
+
+          if(isCorrect || widget.gameState.dailyCharacterAttempts >= 7){
+            widget.gameState.dailyCharacterCompleted = true;
+          }
+
+        });
+      
+      } else if (mode == GameMode.practice){
+        final answer = widget.gameState.practiceCharacterAnswer;
+        if(answer == null) return;
+
+        final isCorrect = normalizedGuess == answer.name.trim().toLowerCase();
+
+        setState(() {
+          widget.gameState.practiceCharacterGuesses.add(character);
+
+          widget.gameState.practiceCharacterNames.removeWhere( (name) => name.trim().toLowerCase() == guess.trim().toLowerCase() );
+
+          practiceList = List.from(widget.gameState.practiceCharacterNames);
+
+          if(isCorrect){
+            widget.gameState.practiceCharacterCompleted = true;
+          }
+
+        });
+
+      }
 
     } catch (e){
       print('Failed to get character guess: $e');
     } 
   }
 
-  
   @override
   Widget build(BuildContext context){
     return Scaffold(
@@ -140,6 +185,10 @@ class _CharacterScreenState extends State<CharacterScreen>{
           child: ValueListenableBuilder<GameMode>(
             valueListenable: currentGameMode,
             builder: (context, currentMode, child){
+
+              final names = currentMode == GameMode.daily ? dailyList : practiceList;
+              final isCompleted = currentMode == GameMode.daily ? widget.gameState.dailyCharacterCompleted : widget.gameState.practiceCharacterCompleted;
+
               return Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children:[
@@ -155,31 +204,57 @@ class _CharacterScreenState extends State<CharacterScreen>{
 
                   SizedBox(height: AppSpacing.xl),
 
-                  //row of guesses
-                  if (widget.gameState.characterGuesses.isNotEmpty) ...[  
-                    Scrollbar(
-                      controller: _scrollController,
-                      thumbVisibility: true,
-                      child: SingleChildScrollView(
-                        scrollDirection: Axis.horizontal,
+                  //row of guesses for daily
+                  if(currentMode == GameMode.daily)
+                    if (widget.gameState.dailyCharacterGuesses.isNotEmpty) ...[  
+                      Scrollbar(
                         controller: _scrollController,
-                        child: Padding(
-                          padding: EdgeInsets.only(bottom:36),
-                          child: Column(
-                            spacing: AppSpacing.bs,
-                            children: [
-                              ...widget.gameState.characterGuesses.map(
-                                (character) => GuessRowCharacter(guess: character, answer: widget.gameState.characterAnswer!),
-                              ),
-                            ],
-                          ),
-                        ),    
+                        thumbVisibility: true,
+                        child: SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          controller: _scrollController,
+                          child: Padding(
+                            padding: EdgeInsets.only(bottom:36),
+                            child: Column(
+                              spacing: AppSpacing.bs,
+                              children: [
+                                ...widget.gameState.dailyCharacterGuesses.map(
+                                  (character) => GuessRowCharacter(guess: character, answer: widget.gameState.dailyCharacterAnswer!),
+                                ),
+                              ],
+                            ),
+                          ),    
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+
+                  //row of guesses for practice
+                  if(currentMode == GameMode.practice)
+                    if (widget.gameState.practiceCharacterGuesses.isNotEmpty) ...[  
+                      Scrollbar(
+                        controller: _scrollController,
+                        thumbVisibility: true,
+                        child: SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          controller: _scrollController,
+                          child: Padding(
+                            padding: EdgeInsets.only(bottom:36),
+                            child: Column(
+                              spacing: AppSpacing.bs,
+                              children: [
+                                ...widget.gameState.practiceCharacterGuesses.map(
+                                  (character) => GuessRowCharacter(guess: character, answer: widget.gameState.practiceCharacterAnswer!),
+                                ),
+                              ],
+                            ),
+                          ),    
+                        ),
+                      ),
+                    ],
 
                   //Textbox
-                  Textbox(minigame: minigame, names:dailyList, onSubmit: addGuess),
+                  if(!isCompleted)
+                    Textbox(minigame: minigame, names:names, onSubmit: addGuess),
 
                   SizedBox(height: AppSpacing.xl),
 
