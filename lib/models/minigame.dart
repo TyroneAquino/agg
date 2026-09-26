@@ -4,6 +4,7 @@ import 'package:agg/constants/app_themes.dart';
 import 'package:agg/screens/anime.dart';
 import 'package:agg/screens/character.dart';
 import 'package:agg/screens/soundtrack.dart';
+import 'package:agg/states/game_state.dart';
 
 class Minigame{
   final String name;
@@ -12,7 +13,7 @@ class Minigame{
   final String instruction;
   final String icon;
   final Color color;
-  final Widget page;
+  final Widget Function(GameState) page;
 
   const Minigame({
       required this.name,
@@ -35,7 +36,7 @@ Minigame getMinigame(MinigameType minigame){
         instruction: 'Start by guessing any anime series',
         icon: 'tv',
         color: AppColors.anime,
-        page: const AnimeScreen(),
+        page: (gameState) => AnimeScreen(gameState: gameState),
       );
 
     case MinigameType.character:
@@ -46,7 +47,7 @@ Minigame getMinigame(MinigameType minigame){
         instruction: 'Start by guessing an anime character',
         icon: 'person',
         color: AppColors.character,
-        page: const CharacterScreen(),
+        page: (gameState) => CharacterScreen(gameState: gameState),
       );
 
     case MinigameType.soundtrack:
@@ -57,7 +58,7 @@ Minigame getMinigame(MinigameType minigame){
         instruction: '',
         icon: 'sound',
         color: AppColors.soundtrack,
-        page: const SoundtrackScreen(),
+        page: (gameState) => SoundtrackScreen(gameState: gameState),
       );
           
   }

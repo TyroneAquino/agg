@@ -1,10 +1,14 @@
+import 'package:agg/states/game_state.dart';
 import 'package:flutter/material.dart';
 import 'package:agg/constants/app_themes.dart';
 import 'package:agg/widgets/widgets.dart';
 import 'package:agg/enums/enums.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 class SoundtrackScreen extends StatefulWidget {
-  const SoundtrackScreen({super.key});
+
+  final GameState gameState;
+  const SoundtrackScreen({super.key, required this.gameState});
 
   @override
   State<SoundtrackScreen> createState() => _SoundtrackScreenState();
@@ -12,6 +16,7 @@ class SoundtrackScreen extends StatefulWidget {
 
 class _SoundtrackScreenState extends State<SoundtrackScreen>{
   final MinigameType minigame = MinigameType.soundtrack;
+  final supabase = Supabase.instance.client;
   final TextEditingController controller = TextEditingController();
 
   @override
@@ -57,7 +62,7 @@ class _SoundtrackScreenState extends State<SoundtrackScreen>{
                   SizedBox(height: AppSpacing.xl),
                   ClueBox(minigame: minigame),
                   SizedBox(height: AppSpacing.xl),
-                  Textbox(minigame: minigame, controller: controller),
+                  //Textbox(minigame: minigame, controller: controller),
                   if (currentMode != GameMode.practice) ...[
                     SizedBox(height: AppSpacing.xl),
                     Text('Yesterday\'s answer was ...', style: AppTextTheme.bodyText)

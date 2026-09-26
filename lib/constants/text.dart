@@ -73,5 +73,10 @@ class AppTextTheme {
     fontWeight: FontWeight.bold, 
     color: AppColors.flame
   );
+
+  static final TextStyle guessText = GoogleFonts.inter(
+    fontSize: 12,
+    color: AppColors.body
+  );
   
 }

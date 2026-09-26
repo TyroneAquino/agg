@@ -29,7 +29,7 @@ class AppDialog extends StatelessWidget{
                     Expanded(
                       child: GeneralButton(
                         title: 'Daily Puzzle', 
-                        color: curentMode == GameMode.daily ? AppColors.correct : AppColors.partial,
+                        color: curentMode == GameMode.daily ? AppColors.correct : AppColors.incorrect,
                         onPressed: (){
                           currentGameMode.value = GameMode.daily;
                           Navigator.pop(context);
@@ -39,7 +39,7 @@ class AppDialog extends StatelessWidget{
                     Expanded(
                       child: GeneralButton(
                         title: 'Practice Mode', 
-                        color: curentMode == GameMode.practice ? AppColors.correct : AppColors.partial,
+                        color: curentMode == GameMode.practice ? AppColors.correct : AppColors.incorrect,
                         onPressed: (){
                           currentGameMode.value = GameMode.practice;
                           Navigator.pop(context);

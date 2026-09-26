@@ -1,14 +1,17 @@
 import 'package:agg/enums/minigame_type.dart';
+import 'package:agg/states/game_state.dart';
 import 'package:flutter/material.dart';
 import 'package:agg/constants/app_themes.dart';
 import 'package:agg/models/minigame.dart';
 
 class MinigameButton extends StatelessWidget{
   final MinigameType minigame;
+  final GameState gameState;
   
   const MinigameButton({
     super.key,
     required this.minigame,
+    required this.gameState
   });
 
   @override
@@ -19,7 +22,7 @@ class MinigameButton extends StatelessWidget{
       onTap: () {
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => minigame.page)
+          MaterialPageRoute(builder: (context) => minigame.page(gameState))
         );
       },
       child: Container(

@@ -7,13 +7,22 @@
 // Everything in this file is Module 4 and 5 material: StatelessWidget,
 // StatefulWidget, setState, Scaffold, AppBar, Column, Card, FilledButton.
 
+import 'package:agg/states/game_state.dart';
 import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
 import 'package:agg/widgets/widgets.dart';
 import 'package:agg/constants/app_themes.dart';
 import 'package:agg/enums/enums.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  await Supabase.initialize(
+    url: const String.fromEnvironment('SUPABASE_URL'),
+    publishableKey: const String.fromEnvironment('SUPABASE_PUBLISHABLE_KEY'),
+  );
+
   runApp(
     // DevicePreview draws a phone frame around your app, so it is judged at the
     // size it was designed for instead of stretched across a laptop window.
@@ -73,7 +82,8 @@ class HomeScreen extends StatefulWidget{
 }
 
 class _HomeScreenState extends State<HomeScreen>{
-    
+    final GameState gameState = GameState();
+
     @override
     Widget build(BuildContext context){
       return Scaffold(
@@ -115,13 +125,13 @@ class _HomeScreenState extends State<HomeScreen>{
                 Text('Choose a Minigame', style: AppTextTheme.bodyLarge),
 
                 SizedBox(height:AppSpacing.xl),
-                MinigameButton(minigame: MinigameType.anime),
+                MinigameButton(minigame: MinigameType.anime, gameState: gameState),
 
                 SizedBox(height:AppSpacing.xl),
-                MinigameButton(minigame: MinigameType.character),
+                MinigameButton(minigame: MinigameType.character, gameState: gameState),
 
                 SizedBox(height:AppSpacing.xl),
-                MinigameButton(minigame: MinigameType.soundtrack),
+                MinigameButton(minigame: MinigameType.soundtrack, gameState: gameState),
 
               ],
             ),
