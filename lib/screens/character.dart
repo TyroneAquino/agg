@@ -27,6 +27,7 @@ class _CharacterScreenState extends State<CharacterScreen>{
 
   bool isLoading = true;
 
+  List<String> characterNames = [];
   List<String> dailyList = [];
   List<String> practiceList = [];
 
@@ -54,6 +55,7 @@ class _CharacterScreenState extends State<CharacterScreen>{
         
         //inititalized the shared choices only once
         if(!widget.gameState.characterNamesInitialized){
+          characterNames = List.from(names);
           widget.gameState.dailyCharacterNames = List.from(names);
           widget.gameState.practiceCharacterNames = List.from(names);
           widget.gameState.characterNamesInitialized = true;
@@ -138,6 +140,8 @@ class _CharacterScreenState extends State<CharacterScreen>{
 
           practiceList = List.from(widget.gameState.practiceCharacterNames);
 
+          widget.gameState.practiceCharacterAttempts++;
+
           if(isCorrect){
             widget.gameState.practiceCharacterCompleted = true;
           }
@@ -199,7 +203,12 @@ class _CharacterScreenState extends State<CharacterScreen>{
                     Text(getMinigame(minigame).instruction, style: AppTextTheme.bodyText),
                   ],
                   if (currentMode != GameMode.daily) ...[
-                    ClueBox(minigame: minigame),
+                    ClueBox(
+                      minigame: minigame,
+                      firstClue: widget.gameState.practiceCharacterAnswer?.signature ?? '',
+                      secondClue: widget.gameState.practiceCharacterAnswer?.quote ?? '', 
+                      attempt: widget.gameState.practiceCharacterAttempts,
+                    ),
                   ], 
 
                   SizedBox(height: AppSpacing.xl),

@@ -60,7 +60,7 @@ class _SoundtrackScreenState extends State<SoundtrackScreen>{
                 children: [
                   TopInterface(minigame:  minigame),
                   SizedBox(height: AppSpacing.xl),
-                  ClueBox(minigame: minigame),
+                  ClueBox(minigame: minigame, firstClue: 'astra', secondClue: 'astra', attempt: 1),
                   SizedBox(height: AppSpacing.xl),
                   //Textbox(minigame: minigame, controller: controller),
                   if (currentMode != GameMode.practice) ...[

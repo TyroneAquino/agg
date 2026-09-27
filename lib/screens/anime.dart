@@ -27,6 +27,7 @@ class _AnimeScreenState extends State<AnimeScreen>{
 
   bool isLoading = true;
 
+  List<String> animeNames = [];
   List<String> dailyList = [];
   List<String> practiceList = [];
 
@@ -54,6 +55,7 @@ class _AnimeScreenState extends State<AnimeScreen>{
         
         //inititalized the shared choices only once
         if(!widget.gameState.animeNamesInitialized){
+          animeNames = List.from(names);
           widget.gameState.dailyAnimeNames = List.from(names);
           widget.gameState.practiceAnimeNames = List.from(names);
           widget.gameState.animeNamesInitialized = true;
@@ -141,6 +143,8 @@ class _AnimeScreenState extends State<AnimeScreen>{
 
           practiceList = List.from(widget.gameState.practiceAnimeNames);
 
+          widget.gameState.practiceAnimeAttempts++;
+
           if(isCorrect){
             widget.gameState.practiceAnimeCompleted = true;
           }
@@ -200,7 +204,11 @@ class _AnimeScreenState extends State<AnimeScreen>{
                     Text(getMinigame(minigame).instruction, style: AppTextTheme.bodyText),
                   ],
                   if (currentMode != GameMode.daily) ...[
-                    ClueBox(minigame: minigame),
+                    ClueBox(
+                      minigame: minigame, 
+                      firstClue: widget.gameState.practiceAnimeAnswer?.status ?? '', 
+                      secondClue: widget.gameState.practiceAnimeAnswer?.synopsis ?? '',
+                      attempt: widget.gameState.practiceAnimeAttempts,),
                   ],
 
                   SizedBox(height: AppSpacing.xl),

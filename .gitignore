@@ -12,10 +12,13 @@ google-services.json.bak
 .dart_tool/
 .packages
 build/
+.dart_tool/
+.packages
 # Note: pubspec.lock IS committed for an app. It pins your exact package
 # versions so your build is the same on your laptop and on the CI runner.
 .flutter-plugins
 .flutter-plugins-dependencies
+
 *.iml
 
 # Raw video captures: compress into docs/ instead, GitHub blocks files over 100 MB

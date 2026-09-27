@@ -14,6 +14,7 @@ class GameState{
   Anime? practiceAnimeAnswer;
   List<String> practiceAnimeNames = [];
   List<Anime> practiceAnimeGuesses = [];
+  int practiceAnimeAttempts = 0; //attempts
   bool practiceAnimeCompleted = false;
 
   //Character game states
@@ -28,6 +29,7 @@ class GameState{
   Character? practiceCharacterAnswer;
   List<String> practiceCharacterNames = [];
   List<Character> practiceCharacterGuesses = [];
+  int practiceCharacterAttempts = 0;
   bool practiceCharacterCompleted = false;
   
 }
