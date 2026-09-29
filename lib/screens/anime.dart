@@ -1,12 +1,14 @@
+import 'package:agg/models/player_stats.dart';
 import 'package:flutter/material.dart';
 import 'package:agg/constants/app_themes.dart';
 import 'package:agg/widgets/widgets.dart';
 import 'package:agg/enums/enums.dart';
 import 'package:agg/models/minigame.dart';
-import 'package:agg/models/answer.dart';
+import 'package:agg/repositories/answer.dart';
 import 'package:agg/models/anime_class.dart';
-import 'package:agg/models/anime_repository.dart';
+import 'package:agg/repositories/anime_repository.dart';
 import 'package:agg/states/game_state.dart';
+import 'package:agg/repositories/stats_repository.dart';
 
 class AnimeScreen extends StatefulWidget {
   final GameState gameState;
@@ -31,6 +33,8 @@ class _AnimeScreenState extends State<AnimeScreen>{
   List<String> dailyList = [];
   List<String> practiceList = [];
 
+  PlayerStats? stats;
+
   @override
   void initState() {
     super.initState();
@@ -41,21 +45,23 @@ class _AnimeScreenState extends State<AnimeScreen>{
     try {
       final results = await Future.wait([
         AnimeRepository.getNames(),
-        DailyAnswerAnime.getAnswer(),
-        PracticeAnswerAnime.getAnswer()
+        DailyAnswerRepository.getAnimeAnswer(),
+        PracticeAnswer.getAnimeAnswer()
       ]);
 
       final names = results[0] as List<String>;
       final dailyAnswer = results[1] as Anime;
       final practiceAnswer = results[2] as Anime;
 
+      final allStats = await StatsRepository.loadAll();
+      final animeStats = allStats[StatsRepository.animeDaily]!;
+
       if (!mounted) return; 
 
       setState(() {
-        
+        animeNames = List.from(names);
         //inititalized the shared choices only once
         if(!widget.gameState.animeNamesInitialized){
-          animeNames = List.from(names);
           widget.gameState.dailyAnimeNames = List.from(names);
           widget.gameState.practiceAnimeNames = List.from(names);
           widget.gameState.animeNamesInitialized = true;
@@ -68,6 +74,9 @@ class _AnimeScreenState extends State<AnimeScreen>{
         // Keep the answer if it was already loaded.
         widget.gameState.dailyAnimeAnswer ??= dailyAnswer;
         widget.gameState.practiceAnimeAnswer ??= practiceAnswer;
+
+        widget.gameState.animeStats = animeStats;
+        stats = animeStats;
 
         isLoading = false;
       });
@@ -89,10 +98,38 @@ class _AnimeScreenState extends State<AnimeScreen>{
     }
   }
 
+  Future<void> showCompletionDialog(DialogType dialogType, {Future<void> Function()? playAgain}) async {
+    if(!mounted) return;
+
+    await showDialog<void>(
+      context: context, 
+      barrierDismissible: false,
+      builder: (context) => DialogBox(title: dialogType, stats: stats ?? widget.gameState.animeStats, gameState: widget.gameState, minigame: minigame, playAgain: playAgain,),
+    );
+  }
+
+  Future<void> resetPractice() async {
+    final newAnswer = await PracticeAnswer.getAnimeAnswer();
+
+    if(!mounted) return;
+
+    setState(() {
+      widget.gameState.practiceAnimeGuesses.clear();
+      widget.gameState.practiceAnimeAttempts = 0;
+      widget.gameState.practiceAnimeCompleted = false;
+
+      widget.gameState.practiceAnimeNames = List.from(animeNames); 
+      practiceList = List.from(animeNames);
+
+      widget.gameState.practiceAnimeAnswer = newAnswer;
+    });
+  }
+
   Future<void> addGuess(String guess) async {
     final mode = currentGameMode.value;
 
     if (mode == GameMode.daily && widget.gameState.dailyAnimeCompleted){
+      debugPrint('Daily anime game already completed.');
       return;
     }
 
@@ -112,6 +149,8 @@ class _AnimeScreenState extends State<AnimeScreen>{
         if(answer == null) return;
 
         final isCorrect = normalizedGuess == answer.name.trim().toLowerCase();
+        final nextAttempt = widget.gameState.dailyAnimeAttempts + 1;
+        final isGameOver = isCorrect || nextAttempt >= 7;
 
         setState(() {
           widget.gameState.dailyAnimeGuesses.add(anime);
@@ -120,16 +159,47 @@ class _AnimeScreenState extends State<AnimeScreen>{
 
           dailyList = List.from(widget.gameState.dailyAnimeNames);
 
-          widget.gameState.dailyAnimeAttempts++;
+          widget.gameState.dailyAnimeAttempts = nextAttempt;  
 
-          if(isCorrect || widget.gameState.dailyAnimeAttempts >= 7){
+          if(isGameOver){
             widget.gameState.dailyAnimeCompleted = true;
           }
+        });
 
-          print('DAILY COMPLETED AFTER GUESS: ${widget.gameState.dailyAnimeCompleted}');
+          debugPrint('========== DAILY ANIME GUESS ==========');
+          debugPrint('Guess: ${anime.name}');
+          debugPrint('Answer: ${answer.name}');
+          debugPrint('Correct: $isCorrect');
+          debugPrint('Attempt: $nextAttempt');
+          debugPrint('Game over: $isGameOver');
+          debugPrint('Daily completed: ${widget.gameState.dailyAnimeCompleted}',);
 
-        }); 
+        if(!isGameOver) return;
 
+        final puzzleDate = DateTime.now().toIso8601String().substring(0, 10);
+        final puzzleKey = 'anime-$puzzleDate';
+
+        debugPrint('Recording Daily stats: $puzzleKey');
+        
+        try{
+          final PlayerStats updatedStats = await StatsRepository.recordResult(minigame: minigame, won: isCorrect, guesses: nextAttempt, puzzleKey: puzzleKey);
+          debugPrint('Daily anime stats recorded successfully.');
+
+          if(!mounted) return;  
+
+          setState(() {
+            stats = updatedStats;
+            widget.gameState.animeStats = updatedStats;
+          });
+        } catch (e, stackTrace){
+          debugPrint('FAILED to record Daily anime stats: $e');
+          debugPrint('$stackTrace');
+        }
+
+        if(!mounted) return;  
+
+        await showCompletionDialog(isCorrect ? DialogType.victory : DialogType.lose);
+          
       } else if (mode == GameMode.practice){
         final answer = widget.gameState.practiceAnimeAnswer;
         if(answer == null) return;
@@ -149,10 +219,15 @@ class _AnimeScreenState extends State<AnimeScreen>{
             widget.gameState.practiceAnimeCompleted = true;
           }
         });
+
+        if(isCorrect){
+          await showCompletionDialog(DialogType.practice, playAgain: resetPractice);
+        }
       }
 
-    } catch (e){
-      print('Failed to get anime guess: $e');
+    } catch (e, stackTrace){
+      debugPrint('Failed to get anime guess: $e');
+      debugPrint('$stackTrace');
     } 
   }
   
@@ -199,7 +274,7 @@ class _AnimeScreenState extends State<AnimeScreen>{
                 children:[
 
                   //Top Interface
-                  TopInterface(minigame: minigame,),
+                  TopInterface(minigame: minigame, stats: widget.gameState.animeStats!),
                   if (currentMode != GameMode.practice)...[
                     Text(getMinigame(minigame).instruction, style: AppTextTheme.bodyText),
                   ],
@@ -208,7 +283,8 @@ class _AnimeScreenState extends State<AnimeScreen>{
                       minigame: minigame, 
                       firstClue: widget.gameState.practiceAnimeAnswer?.status ?? '', 
                       secondClue: widget.gameState.practiceAnimeAnswer?.synopsis ?? '',
-                      attempt: widget.gameState.practiceAnimeAttempts,),
+                      attempt: widget.gameState.practiceAnimeAttempts,
+                    ),
                   ],
 
                   SizedBox(height: AppSpacing.xl),
@@ -284,24 +360,5 @@ class _AnimeScreenState extends State<AnimeScreen>{
       ),
     );
   }
-
-/*void handleGuess(String guess) {
-
-  if(!mounted) return;
-
-  print('GUESS: $guess');
-  print('ANSWER: ${widget.gameState.animeAnswer?.name}');
-
-  final isCorrect =
-      guess.trim().toLowerCase() == widget.gameState.animeAnswer?.name.toLowerCase();
-
-  ScaffoldMessenger.of(context).showSnackBar(
-    SnackBar(
-      content: Text(
-        isCorrect ? 'Correct!' : 'Try Again',
-      ),
-    ),
-  );
-} */
 
 }

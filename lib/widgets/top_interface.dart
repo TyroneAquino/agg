@@ -1,14 +1,18 @@
 import 'package:agg/enums/enums.dart';
+import 'package:agg/widgets/dialog_box.dart';
+import 'package:agg/models/player_stats.dart';
 import 'package:flutter/material.dart';
 import 'package:agg/constants/app_themes.dart';
 import 'package:agg/models/minigame.dart';
 
 class TopInterface extends StatelessWidget {
   final MinigameType minigame;
+  final PlayerStats stats;
   
   const TopInterface({
     super.key,
     required this.minigame,
+    required this.stats
   });
 
   @override
@@ -28,26 +32,52 @@ class TopInterface extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                      Icon(
-                        appIcons['statistics']!, 
-                        size: 48, 
-                        color: currentMode == GameMode.daily ? minigame.color : AppColors.border
-                      ),
+                      if(currentMode != GameMode.practice)
+                        IconButton(
+                          iconSize: 48,
+                          icon: Icon(
+                            appIcons['statistics']!, 
+                            color: minigame.color
+                          ),
+                          onPressed: () {
+                            showDialog<void>(
+                              context: context, 
+                              builder: (context) => DialogBox(title: DialogType.statistics, stats: stats, minigame: this.minigame)
+                            );
+                          },
+                        ),
+                        if(currentMode != GameMode.daily)
+                          Icon(
+                            appIcons['statistics']!,
+                            size: 48,
+                            color: AppColors.border
+                          ),
                       SizedBox(width: AppSpacing.md),
                       Icon(
                         appIcons['flame']!, 
                         size: 48, 
-                        color: currentMode == GameMode.daily ? AppColors.flame : AppColors.border
+                        color: currentMode == GameMode.daily ? (stats.currentStreak == 0 ? AppColors.subBorder: AppColors.flame) : AppColors.border
                       ),
                       if (currentMode != GameMode.practice) ... [
-                        Text('1', style: AppTextTheme.streakText),
+                        stats.currentStreak == 0 
+                        ? Text('0', style: AppTextTheme.noStreakText)
+                        : Text(stats.currentStreak.toString(), style: AppTextTheme.streakText)
                       ],
                       SizedBox(width: AppSpacing.md),
-                      Icon(
-                        appIcons['question']!, 
-                        size: 48, 
-                        color: minigame.color
-                      ),
+                      IconButton(
+                        iconSize: 48,
+                        icon: Icon(
+                          appIcons['question']!, 
+                          size: 48, 
+                          color: minigame.color
+                        ),
+                        onPressed: (){
+                          showDialog<void>(
+                            context: context, 
+                            builder: (context) => DialogBox(title: DialogType.help, minigame: this.minigame)
+                          );
+                        },
+                      )
                   ],
                 ),
               ),

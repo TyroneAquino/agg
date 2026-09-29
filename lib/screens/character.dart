@@ -4,9 +4,11 @@ import 'package:agg/constants/app_themes.dart';
 import 'package:agg/widgets/widgets.dart';
 import 'package:agg/enums/enums.dart';
 import 'package:agg/models/minigame.dart';
-import 'package:agg/models/answer.dart';
-import 'package:agg/models/character_repository.dart';
+import 'package:agg/repositories/answer.dart';
+import 'package:agg/repositories/character_repository.dart';
 import 'package:agg/states/game_state.dart';
+import 'package:agg/repositories/stats_repository.dart';
+import 'package:agg/models/player_stats.dart';
 
 class CharacterScreen extends StatefulWidget {
   final GameState gameState;
@@ -31,6 +33,8 @@ class _CharacterScreenState extends State<CharacterScreen>{
   List<String> dailyList = [];
   List<String> practiceList = [];
 
+  PlayerStats? stats;
+
   @override
   void initState() {
     super.initState();
@@ -41,21 +45,23 @@ class _CharacterScreenState extends State<CharacterScreen>{
     try {
       final results = await Future.wait([
         CharacterRepository.getNames(),
-        DailyAnswerCharacter.getAnswer(),
-        PracticeAnswerCharacter.getAnswer()
+        DailyAnswerRepository.getCharacterAnswer(),
+        PracticeAnswer.getCharacterAnswer()
       ]);
 
       final names = results[0] as List<String>;
       final dailyAnswer = results[1] as Character;
       final practiceAnswer = results[2] as Character;
 
+      final allStats = await StatsRepository.loadAll();
+      final characterStats = allStats[StatsRepository.characterDaily]!;
+
       if (!mounted) return; 
 
       setState(() {
-        
+        characterNames = List.from(names);
         //inititalized the shared choices only once
         if(!widget.gameState.characterNamesInitialized){
-          characterNames = List.from(names);
           widget.gameState.dailyCharacterNames = List.from(names);
           widget.gameState.practiceCharacterNames = List.from(names);
           widget.gameState.characterNamesInitialized = true;
@@ -68,6 +74,8 @@ class _CharacterScreenState extends State<CharacterScreen>{
         // Keep the answer if it was already loaded.
         widget.gameState.dailyCharacterAnswer ??= dailyAnswer;
         widget.gameState.practiceCharacterAnswer ??= practiceAnswer;
+
+        widget.gameState.characterStats = characterStats;
 
         isLoading = false;
       });
@@ -86,6 +94,33 @@ class _CharacterScreenState extends State<CharacterScreen>{
         isLoading = false;
       });
     }
+  }
+
+  Future<void> showCompletionDialog(DialogType dialogType, {Future<void> Function()? playAgain}) async {
+    if(!mounted) return;
+
+    await showDialog<void>(
+      context: context, 
+      barrierDismissible: false,
+      builder: (context) => DialogBox(title: dialogType, stats: stats ?? widget.gameState.characterStats, gameState: widget.gameState, minigame: minigame, playAgain: playAgain,),
+    );
+  }
+
+  Future<void> resetPractice() async {
+    final newAnswer = await PracticeAnswer.getCharacterAnswer();
+
+    if(!mounted) return;
+
+    setState(() {
+      widget.gameState.practiceCharacterGuesses.clear();
+      widget.gameState.practiceCharacterAttempts = 0;
+      widget.gameState.practiceCharacterCompleted = false;
+
+      widget.gameState.practiceCharacterNames = List.from(characterNames); 
+      practiceList = List.from(characterNames);
+
+      widget.gameState.practiceCharacterAnswer = newAnswer;
+    });
   }
 
   Future<void> addGuess(String guess) async {
@@ -111,6 +146,8 @@ class _CharacterScreenState extends State<CharacterScreen>{
         if(answer == null) return;
 
         final isCorrect = normalizedGuess == answer.name.trim().toLowerCase();
+        final nextAttempt = widget.gameState.dailyCharacterAttempts + 1;
+        final isGameOver = isCorrect || nextAttempt >= 7;
 
         setState(() {
           widget.gameState.dailyCharacterGuesses.add(character);
@@ -119,14 +156,39 @@ class _CharacterScreenState extends State<CharacterScreen>{
 
           dailyList = List.from(widget.gameState.dailyCharacterNames);
 
-          widget.gameState.dailyCharacterAttempts++;
+          widget.gameState.dailyCharacterAttempts = nextAttempt;
 
-          if(isCorrect || widget.gameState.dailyCharacterAttempts >= 7){
+          if(isGameOver){
             widget.gameState.dailyCharacterCompleted = true;
           }
-
         });
-      
+
+        if (!isGameOver) return;
+
+        final puzzleDate = DateTime.now().toIso8601String().substring(0, 10);
+        final puzzleKey = 'character-$puzzleDate';
+
+        debugPrint('Recording Daily stats: $puzzleKey');
+          
+        try{
+          final PlayerStats updatedStats = await StatsRepository.recordResult(minigame: minigame, won: isCorrect, guesses: nextAttempt, puzzleKey: puzzleKey);
+          debugPrint('Daily character stats recorded successfully.');
+
+          if(!mounted) return;  
+
+        setState(() {
+          stats = updatedStats;
+          widget.gameState.characterStats = updatedStats;
+        });
+        } catch (e, stackTrace){
+          debugPrint('FAILED to record Daily character stats: $e');
+          debugPrint('$stackTrace');
+        }
+
+        if(!mounted) return;  
+
+        await showCompletionDialog(isCorrect ? DialogType.victory : DialogType.lose);
+        
       } else if (mode == GameMode.practice){
         final answer = widget.gameState.practiceCharacterAnswer;
         if(answer == null) return;
@@ -148,6 +210,9 @@ class _CharacterScreenState extends State<CharacterScreen>{
 
         });
 
+        if(isCorrect){
+          await showCompletionDialog(DialogType.practice, playAgain: resetPractice);
+        }
       }
 
     } catch (e){
@@ -198,7 +263,7 @@ class _CharacterScreenState extends State<CharacterScreen>{
                 children:[
 
                   //Top Interface
-                  TopInterface(minigame: minigame),
+                  TopInterface(minigame: minigame, stats: widget.gameState.characterStats!),
                   if (currentMode != GameMode.practice)...[
                     Text(getMinigame(minigame).instruction, style: AppTextTheme.bodyText),
                   ],

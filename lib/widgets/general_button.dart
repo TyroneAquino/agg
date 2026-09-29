@@ -19,7 +19,10 @@ class GeneralButton extends StatelessWidget{
       onPressed: onPressed,
       style: TextButton.styleFrom(
         backgroundColor: color,
-        side: BorderSide(color: AppColors.border, width: 4),
+        side: BorderSide(
+          color: title == 'Play Again'? AppColors.subBorder :  AppColors.border, 
+          width: 4
+        ),
         shape: const RoundedRectangleBorder(borderRadius: BorderRadius.zero)
       ),
       child: Text(title, style: AppTextTheme.generalButton, textAlign: TextAlign.center,),

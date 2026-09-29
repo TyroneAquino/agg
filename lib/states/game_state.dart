@@ -1,9 +1,11 @@
 import 'package:agg/models/anime_class.dart';
 import 'package:agg/models/character_class.dart';
+import 'package:agg/models/player_stats.dart';
 
 class GameState{
   //Anime game states
   bool animeNamesInitialized = false;
+  PlayerStats? animeStats;
   //anime daily
   Anime? dailyAnimeAnswer;
   List<String> dailyAnimeNames = []; //available guesse
@@ -19,6 +21,7 @@ class GameState{
 
   //Character game states
   bool characterNamesInitialized = false;
+  PlayerStats? characterStats;
   //character daily
   Character? dailyCharacterAnswer;
   List<String> dailyCharacterNames = [];

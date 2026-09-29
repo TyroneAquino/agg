@@ -74,6 +74,11 @@ class AppTextTheme {
     color: AppColors.flame
   );
 
+  static final TextStyle noStreakText = GoogleFonts.inter(
+    fontSize: 20, 
+    color: AppColors.border
+  );
+
   static final TextStyle guessText = GoogleFonts.inter(
     fontSize: 12,
     color: AppColors.body

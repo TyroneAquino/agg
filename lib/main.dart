@@ -14,6 +14,7 @@ import 'package:agg/widgets/widgets.dart';
 import 'package:agg/constants/app_themes.dart';
 import 'package:agg/enums/enums.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:agg/repositories/auth_repository.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -22,6 +23,8 @@ Future<void> main() async {
     url: const String.fromEnvironment('SUPABASE_URL'),
     publishableKey: const String.fromEnvironment('SUPABASE_PUBLISHABLE_KEY'),
   );
+
+  await AuthRepository.ensureSignedIn();
 
   runApp(
     // DevicePreview draws a phone frame around your app, so it is judged at the

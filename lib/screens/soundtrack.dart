@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:agg/constants/app_themes.dart';
 import 'package:agg/widgets/widgets.dart';
 import 'package:agg/enums/enums.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
 
 class SoundtrackScreen extends StatefulWidget {
 
@@ -16,7 +15,6 @@ class SoundtrackScreen extends StatefulWidget {
 
 class _SoundtrackScreenState extends State<SoundtrackScreen>{
   final MinigameType minigame = MinigameType.soundtrack;
-  final supabase = Supabase.instance.client;
   final TextEditingController controller = TextEditingController();
 
   @override
@@ -58,7 +56,7 @@ class _SoundtrackScreenState extends State<SoundtrackScreen>{
                 mainAxisAlignment: MainAxisAlignment.start,
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  TopInterface(minigame:  minigame),
+                  //TopInterface(minigame:  minigame),
                   SizedBox(height: AppSpacing.xl),
                   ClueBox(minigame: minigame, firstClue: 'astra', secondClue: 'astra', attempt: 1),
                   SizedBox(height: AppSpacing.xl),

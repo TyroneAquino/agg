@@ -1,15 +1,30 @@
+import 'package:agg/enums/enums.dart';
+import 'package:agg/models/player_stats.dart';
 import 'package:flutter/material.dart';
 import 'package:agg/constants/app_themes.dart';
-import 'package:agg/enums/dialog_type.dart';
-import 'package:agg/models/dialog.dart';
+import 'package:agg/dialogs/dialog.dart';
+import 'package:agg/states/game_state.dart';
 
 class DialogBox extends StatelessWidget {
   final DialogType title;
+  final PlayerStats? stats;
+  final MinigameType? minigame;
+  final GameState? gameState;
+  final Future<void> Function()? playAgain;
 
   const DialogBox({
     super.key,
     required this.title,
-  });
+    this.stats,
+    this.minigame,
+    this.gameState,
+    this.playAgain
+  }) : assert(
+    title == DialogType.settings || 
+    (title == DialogType.statistics && stats != null) || 
+    (title == DialogType.help && minigame != null) ||
+    ((title == DialogType.victory || title == DialogType.lose || title == DialogType.practice) && stats != null && minigame != null && gameState != null)
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -21,20 +36,7 @@ class DialogBox extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(title.name[0].toUpperCase()+title.name.substring(1), style: AppTextTheme.headingMedium),
-                IconButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  icon: Icon(appIcons['close'], color: AppColors.body)
-                )
-              ],
-            ),
-            SizedBox(height: AppSpacing.bs),
-            AppDialog(title: title)
+            AppDialog(title: title, stats: stats, minigame: minigame, gameState: gameState, playAgain: playAgain,)
           ],
         ),
       ),
