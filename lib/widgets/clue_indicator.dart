@@ -33,14 +33,16 @@ class ClueIndicator extends StatelessWidget{
                   ],
                 ),
                 
-                SizedBox(width: AppSpacing.md),
-                Column(
-                  children: [
-                    Container(height: 32, width: 32, color: AppColors.partial),
-                    SizedBox(height: AppSpacing.sm),
-                    Text('Partial', style: AppTextTheme.captionText)
-                  ],
-                ),
+                if(minigame != MinigameType.soundtrack) ...[
+                  SizedBox(width: AppSpacing.md),
+                  Column(
+                    children: [
+                      Container(height: 32, width: 32, color: AppColors.partial),
+                      SizedBox(height: AppSpacing.sm),
+                      Text('Partial', style: AppTextTheme.captionText)
+                    ],
+                  ),
+                ],
 
                 SizedBox(width: AppSpacing.md),
                 Column(
@@ -51,12 +53,12 @@ class ClueIndicator extends StatelessWidget{
                   ],
                 ),
 
-              if (minigame != MinigameType.character) ...[
+              if (minigame != MinigameType.character && minigame != MinigameType.soundtrack) ...[
 
                 SizedBox(width: AppSpacing.md),
                 Column(
                   children: [
-                    Container(height: 32, width: 32, color: AppColors.comparison, child: Icon(appIcons['lower']!, size:35, color: AppColors.border)),
+                    Container(height: 32, width: 32, color: AppColors.comparison, child: Icon(appIcons['lower']!, color: AppColors.body)),
                     SizedBox(height: AppSpacing.sm),
                     Text('Lower', style: AppTextTheme.captionText)
                   ],
@@ -65,7 +67,7 @@ class ClueIndicator extends StatelessWidget{
                 SizedBox(width: AppSpacing.md),
                 Column(
                   children: [
-                    Container(height: 32, width: 32, color: AppColors.comparison, child: Icon(appIcons['higher']!, size:35, color: AppColors.border)),
+                    Container(height: 32, width: 32, color: AppColors.comparison, child: Icon(appIcons['higher']!, color: AppColors.body)),
                     SizedBox(height: AppSpacing.sm),
                     Text('Higher', style: AppTextTheme.captionText)
                   ],

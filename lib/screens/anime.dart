@@ -34,6 +34,7 @@ class _AnimeScreenState extends State<AnimeScreen>{
   List<String> practiceList = [];
 
   PlayerStats? stats;
+  String? yesterdayAnswer;
 
   @override
   void initState() {
@@ -46,12 +47,14 @@ class _AnimeScreenState extends State<AnimeScreen>{
       final results = await Future.wait([
         AnimeRepository.getNames(),
         DailyAnswerRepository.getAnimeAnswer(),
-        PracticeAnswer.getAnimeAnswer()
+        PracticeAnswer.getAnimeAnswer(),
+        DailyAnswerRepository.getYesterdayAnimeAnswer()
       ]);
 
       final names = results[0] as List<String>;
       final dailyAnswer = results[1] as Anime;
       final practiceAnswer = results[2] as Anime;
+      final yesterday = results[3] as Anime;
 
       final allStats = await StatsRepository.loadAll();
       final animeStats = allStats[StatsRepository.animeDaily]!;
@@ -77,6 +80,8 @@ class _AnimeScreenState extends State<AnimeScreen>{
 
         widget.gameState.animeStats = animeStats;
         stats = animeStats;
+
+        yesterdayAnswer = yesterday.name;
 
         isLoading = false;
       });
@@ -226,8 +231,14 @@ class _AnimeScreenState extends State<AnimeScreen>{
       }
 
     } catch (e, stackTrace){
-      debugPrint('Failed to get anime guess: $e');
+      debugPrint('Soundtrack initialization failed: $e');
       debugPrint('$stackTrace');
+
+      if (!mounted) return;
+
+      setState(() {
+        isLoading = false;
+      });
     } 
   }
   
@@ -276,7 +287,7 @@ class _AnimeScreenState extends State<AnimeScreen>{
                   //Top Interface
                   TopInterface(minigame: minigame, stats: widget.gameState.animeStats!),
                   if (currentMode != GameMode.practice)...[
-                    Text(getMinigame(minigame).instruction, style: AppTextTheme.bodyText),
+                    if(widget.gameState.dailyAnimeAttempts == 0)Text(getMinigame(minigame).instruction, style: AppTextTheme.bodyText),
                   ],
                   if (currentMode != GameMode.daily) ...[
                     ClueBox(
@@ -347,7 +358,7 @@ class _AnimeScreenState extends State<AnimeScreen>{
                   ClueIndicator(minigame: minigame),
                   if (currentMode != GameMode.practice)...[
                     SizedBox(height:AppSpacing.xl),
-                    Text('Yesterday\'s answer was ...', style: AppTextTheme.bodyText),
+                    Text('Yesterday\'s anime was ${yesterdayAnswer ?? '...'}', style: AppTextTheme.bodyText, textAlign: TextAlign.center),
                   ],
 
                   SizedBox(height:AppSpacing.xl),

@@ -5,12 +5,15 @@ import 'package:agg/widgets/minigame_button.dart';
 import 'package:flutter/material.dart';
 import 'package:agg/widgets/general_button.dart';
 import 'package:agg/constants/app_themes.dart';
+import 'package:agg/models/soundtrack_class.dart';
+import 'package:agg/dialogs/dialog_help.dart';
 
 class AppDialog extends StatelessWidget{
   final DialogType title;
   final PlayerStats? stats;
   final MinigameType? minigame;
   final GameState? gameState;
+  final Soundtrack? soundtrack;
   final Future<void> Function()? playAgain;
 
   const AppDialog({
@@ -19,6 +22,7 @@ class AppDialog extends StatelessWidget{
     this.stats,
     this.minigame,
     this.gameState,
+    this.soundtrack,
     this.playAgain
   }) : assert(
     title == DialogType.settings || 
@@ -178,9 +182,9 @@ class AppDialog extends StatelessWidget{
               ],
             ),
             switch(minigame){
-              MinigameType.anime => Text('ANime'),
-              MinigameType.character =>Text('character'),
-              MinigameType.soundtrack =>Text('soundtarac'),
+              MinigameType.anime => DialogHelp(minigame: MinigameType.anime),
+              MinigameType.character => DialogHelp(minigame: MinigameType.character),
+              MinigameType.soundtrack => DialogHelp(minigame: MinigameType.soundtrack),
               null => const SizedBox.shrink()
             }
           ],
@@ -191,14 +195,14 @@ class AppDialog extends StatelessWidget{
         final answerName = switch(minigame){
           MinigameType.anime => gameState?.dailyAnimeAnswer?.name,
           MinigameType.character => gameState?.dailyCharacterAnswer?.name,
-          MinigameType.soundtrack => gameState?.dailyCharacterAnswer?.name,
+          MinigameType.soundtrack => gameState?.dailySoundtrackAnswer?.anime,
           null => null
         };
 
         final attempts = switch(minigame){
           MinigameType.anime => gameState?.dailyAnimeAttempts,
           MinigameType.character => gameState?.dailyCharacterAttempts,
-          MinigameType.soundtrack => gameState?.dailyCharacterAttempts,
+          MinigameType.soundtrack => gameState?.dailySoundtrackAttempts,
           null => null
         };
 
@@ -217,10 +221,12 @@ class AppDialog extends StatelessWidget{
               ],
             ),
             Text('Congratulations!', style: AppTextTheme.headingMedium, textAlign: TextAlign.center),
-            SizedBox(height: AppSpacing.md),
+            SizedBox(height: AppSpacing.xl),
             Text('You guessed $answerName', style: AppTextTheme.bodyText, textAlign: TextAlign.center),
             Text('Number of Tries: $attempts', style: AppTextTheme.bodyText, textAlign: TextAlign.center),
-            SizedBox(height: AppSpacing.md),
+            SizedBox(height: AppSpacing.xl),
+            if(minigame == MinigameType.soundtrack)SoundtrackDialog(soundtrack: soundtrack),
+            SizedBox(height: AppSpacing.xl),
             Text('Statistics', style: AppTextTheme.bodyText, textAlign: TextAlign.center),
             SizedBox(height: AppSpacing.bs),
             Row(
@@ -259,8 +265,8 @@ class AppDialog extends StatelessWidget{
                 ),
               ],
             ),
-            SizedBox(height: AppSpacing.lg),
-            Text('Next Minigame', style: AppTextTheme.bodyText),
+            SizedBox(height: AppSpacing.xl),
+            if(minigame != MinigameType.soundtrack)Text('Next Minigame:', style: AppTextTheme.bodyText),
             SizedBox(height: AppSpacing.bs),
             if(minigame == MinigameType.anime) MinigameButton(minigame: MinigameType.character, gameState: gameState!),
             if(minigame == MinigameType.character) MinigameButton(minigame: MinigameType.soundtrack, gameState: gameState!)
@@ -269,10 +275,17 @@ class AppDialog extends StatelessWidget{
 
       //daily lose
       case(DialogType.lose):
+      final answerName = switch(minigame){
+          MinigameType.anime => gameState?.dailyAnimeAnswer?.name,
+          MinigameType.character => gameState?.dailyCharacterAnswer?.name,
+          MinigameType.soundtrack => gameState?.dailySoundtrackAnswer?.anime,
+          null => null
+        };
+        
         final attempts = switch(minigame){
           MinigameType.anime => gameState?.dailyAnimeAttempts,
           MinigameType.character => gameState?.dailyCharacterAttempts,
-          MinigameType.soundtrack => gameState?.dailyCharacterAttempts,
+          MinigameType.soundtrack => gameState?.dailySoundtrackAttempts,
           null => null
         };
 
@@ -291,10 +304,14 @@ class AppDialog extends StatelessWidget{
               ],
             ),
             Text('Nice Try!', style: AppTextTheme.headingMedium),
-            SizedBox(height: AppSpacing.md),
+            SizedBox(height: AppSpacing.xl),
+            Text('Today\'s Answer: $answerName', style: AppTextTheme.bodyText),
             Text('Number of Tries: $attempts', style: AppTextTheme.bodyText),
-            SizedBox(height: AppSpacing.md),
+            SizedBox(height: AppSpacing.xl),
+            if(minigame == MinigameType.soundtrack)SoundtrackDialog(soundtrack: soundtrack),
+            SizedBox(height: AppSpacing.xl),
             Text('Statistics', style: AppTextTheme.bodyText),
+            SizedBox(height: AppSpacing.bs),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -331,8 +348,8 @@ class AppDialog extends StatelessWidget{
                 ),
               ],
             ),
-            SizedBox(height: AppSpacing.lg),
-            Text('Next Minigame', style: AppTextTheme.bodyText),
+            SizedBox(height: AppSpacing.xl),
+            if(minigame != MinigameType.soundtrack)Text('Next Minigame:', style: AppTextTheme.bodyText),
             SizedBox(height: AppSpacing.bs),
             if(minigame == MinigameType.anime) MinigameButton(minigame: MinigameType.character, gameState: gameState!),
             if(minigame == MinigameType.character) MinigameButton(minigame: MinigameType.soundtrack, gameState: gameState!)
@@ -344,14 +361,14 @@ class AppDialog extends StatelessWidget{
         final answerName = switch(minigame){
           MinigameType.anime => gameState?.practiceAnimeAnswer?.name,
           MinigameType.character => gameState?.practiceCharacterAnswer?.name,
-          MinigameType.soundtrack => gameState?.practiceCharacterAnswer?.name,
+          MinigameType.soundtrack => gameState?.practiceSoundtrackAnswer?.anime,
           null => null
         };
 
         final attempts = switch(minigame){
           MinigameType.anime => gameState?.practiceAnimeAttempts,
           MinigameType.character => gameState?.practiceCharacterAttempts,
-          MinigameType.soundtrack => gameState?.practiceCharacterAttempts,
+          MinigameType.soundtrack => gameState?.practiceSoundtrackAttempts,
           null => null
         };
 
@@ -371,10 +388,12 @@ class AppDialog extends StatelessWidget{
               ],
             ),
             Text('Congratulations!', style: AppTextTheme.headingMedium, textAlign: TextAlign.center),
-            SizedBox(height: AppSpacing.md),
+            SizedBox(height: AppSpacing.xl),
             Text('You guessed $answerName', style: AppTextTheme.bodyText, textAlign: TextAlign.center),
             Text('Number of Tries: $attempts', style: AppTextTheme.bodyText, textAlign: TextAlign.center),
-            SizedBox(height: AppSpacing.md),
+            SizedBox(height: AppSpacing.xl),
+            if(minigame == MinigameType.soundtrack)SoundtrackDialog(soundtrack: soundtrack),
+            SizedBox(height: AppSpacing.xl),
             GeneralButton(
               title: 'Play Again', 
               color: AppColors.correct, 
@@ -385,8 +404,8 @@ class AppDialog extends StatelessWidget{
                 }
               },
             ),
-            SizedBox(height: AppSpacing.md),
-            Text('Other Minigame', style: AppTextTheme.bodyText),
+            SizedBox(height: AppSpacing.xl),
+            Text('Other Minigame:', style: AppTextTheme.bodyText),
             if(minigame != MinigameType.anime)...[MinigameButton(minigame: MinigameType.anime, gameState: gameState!)],
             SizedBox(height: AppSpacing.bs),
             if(minigame != MinigameType.character)...[MinigameButton(minigame: MinigameType.character, gameState: gameState!)],
@@ -395,5 +414,25 @@ class AppDialog extends StatelessWidget{
           ]
         );    
     }
+  }
+}
+
+class SoundtrackDialog extends StatelessWidget{
+  final Soundtrack? soundtrack;
+
+  const SoundtrackDialog({
+    super.key,
+    this.soundtrack
+  });
+
+  @override
+  Widget build(BuildContext context){
+    return Column(
+      children: [
+        Text('Soundtrack: ${soundtrack?.title ?? ''}', style: AppTextTheme.bodyText, textAlign: TextAlign.center),
+        SizedBox(height: AppSpacing.bs),
+        Text('Artist: ${soundtrack?.artist ?? ''}', style: AppTextTheme.bodyText, textAlign: TextAlign.center),
+      ]
+    );
   }
 }

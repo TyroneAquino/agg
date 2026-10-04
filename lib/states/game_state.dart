@@ -1,5 +1,6 @@
 import 'package:agg/models/anime_class.dart';
 import 'package:agg/models/character_class.dart';
+import 'package:agg/models/soundtrack_class.dart';
 import 'package:agg/models/player_stats.dart';
 
 class GameState{
@@ -8,7 +9,7 @@ class GameState{
   PlayerStats? animeStats;
   //anime daily
   Anime? dailyAnimeAnswer;
-  List<String> dailyAnimeNames = []; //available guesse
+  List<String> dailyAnimeNames = []; //available guesses
   List<Anime> dailyAnimeGuesses = []; //guesses attempted by the user
   int dailyAnimeAttempts = 0; //attempts
   bool dailyAnimeCompleted = false; //flag for completion
@@ -34,5 +35,21 @@ class GameState{
   List<Character> practiceCharacterGuesses = [];
   int practiceCharacterAttempts = 0;
   bool practiceCharacterCompleted = false;
+
+  //Soundtrack game states
+  bool soundtrackNamesInitialized = false;
+  PlayerStats? soundtrackStats;
+  //Soundtrack daily
+  Soundtrack? dailySoundtrackAnswer;
+  List<String> dailySoundtrackNames = [];
+  List<Soundtrack> dailySoundtrackGuesses = [];
+  int dailySoundtrackAttempts = 0;
+  bool dailySoundtrackCompleted = false;
+  //Soundtrack practice
+  Soundtrack? practiceSoundtrackAnswer;
+  List<String> practiceSoundtrackNames = [];
+  List<Soundtrack> practiceSoundtrackGuesses = [];
+  int practiceSoundtrackAttempts = 0;
+  bool practiceSoundtrackCompleted = false;
   
 }

@@ -31,4 +31,16 @@ class AnimeRepository {
 
     return Anime.fromJson(response);
   }
+
+  static Future<Anime> getAnimeById(int id) async{
+    final Map<String, dynamic> response = await _supabase
+      .from('anime')
+      .select()
+      .eq('id', id)
+      .limit(1)
+      .single();
+
+    print('anime RESPONSE: $response');
+    return Anime.fromJson(response);
+  }
 }

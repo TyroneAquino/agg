@@ -6,3 +6,4 @@ export 'package:agg/widgets/textbox.dart';
 export 'package:agg/widgets/dialog_box.dart';
 export 'package:agg/widgets/guess_row_anime.dart';
 export 'package:agg/widgets/guess_row_character.dart';
+export 'package:agg/widgets/guess_column.dart';

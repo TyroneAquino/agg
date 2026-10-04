@@ -34,6 +34,7 @@ class _CharacterScreenState extends State<CharacterScreen>{
   List<String> practiceList = [];
 
   PlayerStats? stats;
+  String? yesterdayAnswer;
 
   @override
   void initState() {
@@ -46,12 +47,14 @@ class _CharacterScreenState extends State<CharacterScreen>{
       final results = await Future.wait([
         CharacterRepository.getNames(),
         DailyAnswerRepository.getCharacterAnswer(),
-        PracticeAnswer.getCharacterAnswer()
+        PracticeAnswer.getCharacterAnswer(),
+        DailyAnswerRepository.getYesterdayCharacterAnswer(),
       ]);
 
       final names = results[0] as List<String>;
       final dailyAnswer = results[1] as Character;
       final practiceAnswer = results[2] as Character;
+      final yesterday = results[3] as Character;
 
       final allStats = await StatsRepository.loadAll();
       final characterStats = allStats[StatsRepository.characterDaily]!;
@@ -76,6 +79,9 @@ class _CharacterScreenState extends State<CharacterScreen>{
         widget.gameState.practiceCharacterAnswer ??= practiceAnswer;
 
         widget.gameState.characterStats = characterStats;
+        stats = characterStats;
+
+        yesterdayAnswer = yesterday.name;
 
         isLoading = false;
       });
@@ -265,7 +271,7 @@ class _CharacterScreenState extends State<CharacterScreen>{
                   //Top Interface
                   TopInterface(minigame: minigame, stats: widget.gameState.characterStats!),
                   if (currentMode != GameMode.practice)...[
-                    Text(getMinigame(minigame).instruction, style: AppTextTheme.bodyText),
+                    if(widget.gameState.dailyCharacterAttempts == 0)Text(getMinigame(minigame).instruction, style: AppTextTheme.bodyText),
                   ],
                   if (currentMode != GameMode.daily) ...[
                     ClueBox(
@@ -333,9 +339,9 @@ class _CharacterScreenState extends State<CharacterScreen>{
                   SizedBox(height: AppSpacing.xl),
 
                   ClueIndicator(minigame: minigame),
-                  if (currentMode != GameMode.practice)...[
+                  if (currentMode != GameMode.practice)...[ 
                     SizedBox(height:AppSpacing.xl),
-                    Text('Yesterday\'s answer was ...', style: AppTextTheme.bodyText),
+                    Text('Yesterday\'s character was ${yesterdayAnswer ?? '...'}', style: AppTextTheme.bodyText, textAlign: TextAlign.center),
                   ],
                   SizedBox(height:AppSpacing.xl),
                   MinigameButton(minigame: MinigameType.soundtrack, gameState: widget.gameState),

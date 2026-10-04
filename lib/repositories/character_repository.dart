@@ -33,4 +33,16 @@ class CharacterRepository {
 
     return Character.fromJson(response);
   }
+
+  static Future<Character> getCharacterById(int id) async{
+    final Map<String, dynamic> response = await _supabase
+      .from('character')
+      .select()
+      .eq('id', id)
+      .limit(1)
+      .single();
+
+    print('character RESPONSE: $response');
+    return Character.fromJson(response);
+  }
 }

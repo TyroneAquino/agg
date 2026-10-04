@@ -84,7 +84,7 @@ class BoxContent<T> extends StatelessWidget{
         children: [
           Text(displayContent, style: AppTextTheme.guessText),
           if ((content as int) != (answer as int))
-            Icon((content as int) > (answer as int) ? appIcons['lower'] : appIcons['higher']),
+            Icon((content as int) > (answer as int) ? appIcons['lower'] : appIcons['higher'], color: AppColors.body),
         ],
       )
       :Align(

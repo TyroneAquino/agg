@@ -4,12 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:agg/constants/app_themes.dart';
 import 'package:agg/dialogs/dialog.dart';
 import 'package:agg/states/game_state.dart';
+import 'package:agg/models/soundtrack_class.dart';
 
 class DialogBox extends StatelessWidget {
   final DialogType title;
   final PlayerStats? stats;
   final MinigameType? minigame;
   final GameState? gameState;
+  final Soundtrack? soundtrack;
   final Future<void> Function()? playAgain;
 
   const DialogBox({
@@ -18,6 +20,7 @@ class DialogBox extends StatelessWidget {
     this.stats,
     this.minigame,
     this.gameState,
+    this.soundtrack,
     this.playAgain
   }) : assert(
     title == DialogType.settings || 
@@ -32,12 +35,14 @@ class DialogBox extends StatelessWidget {
       backgroundColor: AppColors.subBackground,
       child: Padding(
         padding: EdgeInsets.all(AppSpacing.md),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            AppDialog(title: title, stats: stats, minigame: minigame, gameState: gameState, playAgain: playAgain,)
-          ],
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              AppDialog(title: title, stats: stats, minigame: minigame, gameState: gameState, playAgain: playAgain, soundtrack: soundtrack),  
+            ],
+          ),
         ),
       ),
     );

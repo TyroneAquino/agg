@@ -46,7 +46,35 @@ class AppTextTheme {
 
   static final TextStyle captionText = GoogleFonts.inter(
     fontSize: 12, 
+    color: AppColors.body,
+    fontWeight: FontWeight.normal,
+  );
+
+  static final TextStyle captionTextBold = GoogleFonts.inter(
+    fontSize: 12, 
+    fontWeight: FontWeight.bold,
     color: AppColors.body
+  );
+
+
+  static final TextStyle captionTextCorrect = GoogleFonts.inter(
+    fontSize: 12, 
+    color: AppColors.correct
+  );
+
+  static final TextStyle captionTextIncorrect = GoogleFonts.inter(
+    fontSize: 12, 
+    color: AppColors.incorrect
+  );
+
+  static final TextStyle captionTextPartial = GoogleFonts.inter(
+    fontSize: 12, 
+    color: AppColors.partial
+  );
+
+  static final TextStyle captionTextComparison = GoogleFonts.inter(
+    fontSize: 12, 
+    color: AppColors.comparison
   );
 
   static final TextStyle buttonTitle = GoogleFonts.inter(
@@ -76,11 +104,16 @@ class AppTextTheme {
 
   static final TextStyle noStreakText = GoogleFonts.inter(
     fontSize: 20, 
-    color: AppColors.border
+    color: AppColors.subBorder
   );
 
   static final TextStyle guessText = GoogleFonts.inter(
     fontSize: 12,
+    color: AppColors.body
+  );
+
+   static final TextStyle guessTextLarger = GoogleFonts.inter(
+    fontSize: 16,
     color: AppColors.body
   );
   

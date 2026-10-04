@@ -1,25 +1,43 @@
 import 'package:agg/enums/enums.dart';
 import 'package:flutter/material.dart';
 import 'package:agg/constants/app_themes.dart';
+import 'package:agg/models/soundtrack_class.dart';
+import 'package:just_audio/just_audio.dart';
 
-class ClueBox extends StatelessWidget{
+class ClueBox extends StatefulWidget{
   final MinigameType minigame;
   final String firstClue;
   final String secondClue;
   final int attempt; 
+  final Soundtrack? soundtrack;
 
   const ClueBox({
     super.key,
     required this.minigame,
     required this.firstClue,
     required this.secondClue,
-    required this.attempt
+    required this.attempt,
+    this.soundtrack
   });
+
+  @override
+  State<ClueBox> createState() => _ClueBoxState();
+}
+
+class _ClueBoxState extends State<ClueBox> {
+  final AudioPlayer player = AudioPlayer();
+  bool isPlaying = false; 
+  double standardVolume = 0.7;
+
+  @override 
+  void dispose() {
+    player.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context){
     return Container(
-      //height: 140,
       width: 360,
       decoration: BoxDecoration(color: AppColors.subBackground, border: Border.all(color: AppColors.border, width: 8)),
       padding: EdgeInsets.all(AppSpacing.md),
@@ -28,29 +46,83 @@ class ClueBox extends StatelessWidget{
         builder: (context, currentMode, child){
           return Column(
             children: [
+
               if (currentMode != GameMode.daily) ...[ //
                 Text('Practice Mode', style: AppTextTheme.bodyText),
                 SizedBox(height: AppSpacing.md),
-                if(minigame != MinigameType.soundtrack) ...[
-                  GameClue(minigame: minigame, firstClue:firstClue, secondClue:secondClue, attempt: attempt),
+                if(widget.minigame != MinigameType.soundtrack) ...[
+                  GameClue(minigame: widget.minigame, firstClue:widget.firstClue, secondClue:widget.secondClue, attempt: widget.attempt),
                 ],
               ],
-              if (minigame == MinigameType.soundtrack) ... [
+
+              if (widget.minigame == MinigameType.soundtrack) ... [
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Icon(appIcons['play']?? Icons.abc_outlined, size: 32, color: AppColors.subBorder),
+                    IconButton(
+                      icon: Icon(
+                        isPlaying  ? appIcons['pause'] : appIcons['play'], size: 32, color: AppColors.subBorder
+                      ),
+                      onPressed:() async {
+                        if (isPlaying) {
+                          await player.pause();
+                          setState(() {
+                            isPlaying = false;
+                          });
+                        } else {
+                          final url = widget.soundtrack?.link;
+                          if(url == null || url.isEmpty){
+                            debugPrint('Soundtrack link is null or empty');
+                            return;
+                          }
+                          try{
+                            debugPrint('Attempting to play audio: $url');
+                            await player.setUrl(url);
+
+                             debugPrint('Audio source loaded successfully');
+                            await player.play();
+  
+                            setState((){
+                              isPlaying = true;
+                            });
+                          } catch (e, stackTrace) {
+                            debugPrint('Error playing audio: $e');
+                            debugPrint('$stackTrace');
+                          } 
+                        }
+                      },
+                    ),
+
                     SizedBox(width:AppSpacing.bs),
-                    Text('Play Audio', style: AppTextTheme.bodyText),
+                    Text(isPlaying ? 'Pause Audio' : 'Play Audio', style: AppTextTheme.bodyText),
                   ],
                 ),
                 SizedBox(height: AppSpacing.md),
-                LinearProgressIndicator(value: .6, color: Color(0xFF475569), backgroundColor: Color(0xFFF8FAFC)),
+                SizedBox(
+                  width:300,
+                  child: Slider(
+                    min: 0.0,
+                    max: 1.0,
+                    thumbColor: AppColors.subBorder,
+                    activeColor: AppColors.subBorder,
+                    inactiveColor: AppColors.body,
+                    value: standardVolume,
+                    onChanged: (double newVolume) {
+                      setState(() {
+                        standardVolume = newVolume;
+                      });
+                      player.setVolume(standardVolume);
+                    },
+                  ), 
+                ),
+
                 SizedBox(height: AppSpacing.md),
 
+                
+
                 if(currentMode != GameMode.daily)...[
-                  GameClue(minigame: minigame, firstClue:firstClue, secondClue:secondClue, attempt: attempt)
+                  GameClue(minigame: widget.minigame, firstClue:widget.firstClue, secondClue:widget.secondClue, attempt: widget.attempt)
                 ]
               ],
             ],
@@ -82,7 +154,7 @@ class GameClue extends StatelessWidget{
       case MinigameType.character:
         return clueIndex == 1 ? 'Signature' : 'Quote';
       case MinigameType.soundtrack:
-        return clueIndex == 1 ? 'Artist' : 'Type';
+        return clueIndex == 1 ? 'Type' : 'Artist';
     }
   }
 
