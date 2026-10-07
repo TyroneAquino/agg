@@ -9,7 +9,7 @@ import 'package:agg/repositories/soundtrack_repository.dart';
 import 'package:agg/models/player_stats.dart';
 import 'package:agg/repositories/stats_repository.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-
+import 'package:agg/repositories/progress_repository.dart';
 
 class SoundtrackScreen extends StatefulWidget {
 
@@ -223,6 +223,8 @@ class _SoundtrackScreenState extends State<SoundtrackScreen>{
           widget.gameState.dailySoundtrackCompleted = true;
         }
         });
+
+        await ProgressRepository.save(widget.gameState);
 
         if(!isGameOver) return;
 

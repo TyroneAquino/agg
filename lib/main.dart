@@ -7,6 +7,7 @@
 // Everything in this file is Module 4 and 5 material: StatelessWidget,
 // StatefulWidget, setState, Scaffold, AppBar, Column, Card, FilledButton.
 
+import 'package:agg/repositories/progress_repository.dart';
 import 'package:agg/states/game_state.dart';
 import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
@@ -86,6 +87,30 @@ class HomeScreen extends StatefulWidget{
 
 class _HomeScreenState extends State<HomeScreen>{
     final GameState gameState = GameState();
+    bool progressLoaded = false;
+
+    Future<void> loadProgress() async{
+
+      if(progressLoaded){
+        return;
+      }
+
+      progressLoaded = true;
+
+      try{
+        await ProgressRepository.restore(gameState);
+      }catch (e){
+        debugPrint('Daled top restore progress');
+      }
+
+    }
+
+    @override
+    void initState() {
+      super.initState();
+
+      loadProgress();
+    }
 
     @override
     Widget build(BuildContext context){

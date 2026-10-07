@@ -9,6 +9,7 @@ import 'package:agg/repositories/character_repository.dart';
 import 'package:agg/states/game_state.dart';
 import 'package:agg/repositories/stats_repository.dart';
 import 'package:agg/models/player_stats.dart';
+import 'package:agg/repositories/progress_repository.dart';
 
 class CharacterScreen extends StatefulWidget {
   final GameState gameState;
@@ -168,6 +169,8 @@ class _CharacterScreenState extends State<CharacterScreen>{
             widget.gameState.dailyCharacterCompleted = true;
           }
         });
+
+        await ProgressRepository.save(widget.gameState);
 
         if (!isGameOver) return;
 

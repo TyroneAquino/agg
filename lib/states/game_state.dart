@@ -51,5 +51,44 @@ class GameState{
   List<Soundtrack> practiceSoundtrackGuesses = [];
   int practiceSoundtrackAttempts = 0;
   bool practiceSoundtrackCompleted = false;
-  
+
+  Map<String, dynamic> toJson({
+    required String dailyDate,
+  }){
+    return{
+      'dailyDate': dailyDate,
+
+      'anime':{
+        'attempts': dailyAnimeAttempts,
+        'completed': dailyAnimeCompleted,
+        'guesses': dailyAnimeGuesses.map((anime) => anime.name).toList(),
+      },
+
+      'character':{
+        'attempts': dailyCharacterAttempts,
+        'completed': dailyCharacterCompleted,
+        'guesses': dailyCharacterGuesses.map((character) => character.name).toList(),
+      },
+
+      'soundtrack':{
+        'attempts': dailySoundtrackAttempts,
+        'completed': dailySoundtrackCompleted,
+        'guesses': dailySoundtrackGuesses.map((soundtrack) => soundtrack.anime).toList(),
+      },
+    };
+  }
+
+  void clearDailyProgress(){
+    dailyAnimeGuesses.clear();
+    dailyAnimeAttempts = 0;
+    dailyAnimeCompleted = false;
+
+    dailyCharacterGuesses.clear();
+    dailyCharacterAttempts = 0;
+    dailyCharacterCompleted = false;
+
+    dailySoundtrackGuesses.clear();
+    dailySoundtrackAttempts = 0;
+    dailySoundtrackCompleted = false;
+  }
 }

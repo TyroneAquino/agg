@@ -4,6 +4,7 @@ import 'package:agg/states/game_state.dart';
 import 'package:agg/widgets/minigame_button.dart';
 import 'package:flutter/material.dart';
 import 'package:agg/widgets/general_button.dart';
+import 'package:agg/widgets/device_transfer_dialog.dart';
 import 'package:agg/constants/app_themes.dart';
 import 'package:agg/models/soundtrack_class.dart';
 import 'package:agg/dialogs/dialog_help.dart';
@@ -83,7 +84,23 @@ class AppDialog extends StatelessWidget{
                 );
               },
             ),
-                        
+          
+            ListTile(
+              leading: const Icon(Icons.devices),
+              title: const Text('Switch Device'),
+              subtitle: const Text(
+                'Transfer your A.GG progress',
+              ),
+              onTap: () {
+                showDialog(
+                  context: context,
+                  builder: (_) {
+                    return const DeviceTransferDialog();
+                  },
+                );
+              },
+            ),
+
             SizedBox(height: AppSpacing.lg),
             GeneralButton(
               title: 'Exit', 

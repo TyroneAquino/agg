@@ -9,6 +9,7 @@ import 'package:agg/models/anime_class.dart';
 import 'package:agg/repositories/anime_repository.dart';
 import 'package:agg/states/game_state.dart';
 import 'package:agg/repositories/stats_repository.dart';
+import 'package:agg/repositories/progress_repository.dart';
 
 class AnimeScreen extends StatefulWidget {
   final GameState gameState;
@@ -170,6 +171,8 @@ class _AnimeScreenState extends State<AnimeScreen>{
             widget.gameState.dailyAnimeCompleted = true;
           }
         });
+
+        await ProgressRepository.save(widget.gameState);
 
           debugPrint('========== DAILY ANIME GUESS ==========');
           debugPrint('Guess: ${anime.name}');
