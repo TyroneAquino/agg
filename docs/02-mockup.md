@@ -5,19 +5,31 @@ mockup shows what it looks like.
 
 ## Mockup
 
-Put your mockup images or PDF in `assets/` and embed them here, one heading per
-screen.
+### Main Screen
+![Main Screen](assets/main-screen.png)
 
-_(Embed your mockup here once it is in `assets/`.)_
+### Anime Minigame
+![Anime Minigame](assets/anime-minigame.png)
+
+### Character Minigame
+![Character Minigame](assets/character-minigame.png)
+
+### Soundtrack Minigame
+![Soundtrack Minigame](assets/soundtrack-minigame.png)
 
 ## Wireframes
 
-Your earlier box-and-label sketches and the screen flow: which screen opens
-first, and how a user moves between them. Photos of paper are fine.
+### Screen Wireframe
+![Screen Wireframe](assets/screen-wireframe.png)
 
-_(Embed your flow diagram and sketches here once they are in `assets/`.)_
+### Minigame Wireframe
+![Minigame Wireframe](assets/minigame-wireframe.png)
 
 ## Screens
 
-One short section per screen: what is on it, what the user does, and where each
-action goes.
+- **Main Screen:** Choose three minigames.
+- **Anime Screen:** Play the Anime minigame by guessing the secret anime.
+- **Character Screen:** Play the Character minigame by guessing the secret character.
+- **Soundtrack Screen** Play the Soundtrack minigame by guessing the anime where the soundtrack is from.
+- **All Minigame Screens:** Has a stat icon to show statistics, how to play icon to show basic game rules and has a textbox that inputs answers.
+- **All Screens:** Has a setting icon that can switch between two game modes, device switching and application exit button.

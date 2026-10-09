@@ -40,8 +40,8 @@ A repo without screenshots reads as abandoned, whatever the code says.
 
 Three to five bullets. What can a user actually do?
 
-- ...
-- ...
+- A user can play three minigames with two different.
+- A user can switch device to save progress.
 - ...
 
 ## Built with
@@ -49,9 +49,9 @@ Three to five bullets. What can a user actually do?
 | | |
 | --- | --- |
 | Framework | Flutter (Dart) |
-| State | `setState` / provider / riverpod (say which) |
-| Storage | shared_preferences / Hive / Drift / Firebase / Supabase / other |
-| Other packages | list the ones that matter, with a word on why |
+| State | `setState` |
+| Storage | Supabase |
+| Other packages | - device_preview (mobile phone simulation) <br> - google_fonts (application font families) <br> - supabase_flutter (for data storage and backend) <br> - just_audio (audio package for Soundtrack minigame) |
 
 ## Running it yourself
 

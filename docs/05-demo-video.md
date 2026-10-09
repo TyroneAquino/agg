@@ -1,16 +1,29 @@
 # Demo video
 
-**File:** `demo.mp4` in this folder, or the hosted link (see below)
-**Length:** aim for 3 to 5 minutes
-**Recorded on:** the device you used
+**File:** [`demo`](https://github.com/TyroneAquino/agg/releases/tag/v1)
+**Length:** 9:23
+**Recorded on:** Desktop
+**Google Drive Link:** https://drive.google.com/file/d/1FTyRONaaTjsCGN8DHvIBW4UphVwK8Aed/view?usp=drive_link
 
 ## What it shows
 
 A short list, in order, so a viewer can skip to what they need:
 
-- 0:00 what the app is and who it is for
-- 0:20 ...
-- 1:10 ...
+- 0:00 **PRESENTATION**
+- 0:09 about the app
+- 0:22 goal of the app
+- 0:40 how the app works
+- 0:54 **LIVE DEMO**
+- 0:59 main screen
+- 1:09 anime minigame tutorial
+- 2:37 character minigame tutorial
+- 2:57 soundtrack minigame tutorial
+- 3:50 device switching
+- 5:11 daily mode and practice mode
+- 0:00 **PRESENTATION AGAIN**
+- 5:40 ai usage
+- 7:23 problems on developing the app
+- 8:57 future of agg
 
 Cover, in this order: the main user journey end to end, anything that only works
 on a real device (camera, GPS, sensors), and the thing you are proudest of.
