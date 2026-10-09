@@ -19,7 +19,7 @@ class PlayerStats{
 
   double get winRate => puzzlesPlayed == 0 ? 0 : puzzlesSolved/puzzlesPlayed * 100;
 
-  double get averageGuess => totalGuesses == 0 ? 0 : totalGuesses/puzzlesSolved;
+  double get averageGuess => totalGuesses == 0 ? 0 : totalGuesses/puzzlesPlayed;
 
   Map<String, dynamic> toJson() => {  
     'puzzlesPlayed':puzzlesPlayed,

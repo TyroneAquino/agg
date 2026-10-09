@@ -72,6 +72,7 @@ class _AnimeScreenState extends State<AnimeScreen>{
         }
 
         //restore the remaining choices
+        widget.gameState.removeGuessedDailyNames();
         dailyList = List.from(widget.gameState.dailyAnimeNames); 
         practiceList = List.from(widget.gameState.practiceAnimeNames); 
 
@@ -350,7 +351,16 @@ class _AnimeScreenState extends State<AnimeScreen>{
                         ),
                       ),
                     ],
-  
+
+                  if(currentMode == GameMode.practice && widget.gameState.practiceAnimeCompleted)
+                    GeneralButton(
+                      title: 'Play Again', 
+                      color: AppColors.anime, 
+                      onPressed: () async {
+                        await resetPractice();
+                      },
+                    ),
+
                   //TExtbox
                   if(!isCompleted)
                     Textbox(minigame: minigame, names:names, onSubmit: addGuess),

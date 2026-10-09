@@ -20,7 +20,7 @@ class GeneralButton extends StatelessWidget{
       style: TextButton.styleFrom(
         backgroundColor: color,
         side: BorderSide(
-          color: title == 'Play Again'? AppColors.subBorder :  AppColors.border, 
+          color:  AppColors.subBorder ,
           width: 4
         ),
         shape: const RoundedRectangleBorder(borderRadius: BorderRadius.zero)

@@ -29,16 +29,16 @@ class Character {
 
   factory Character.fromJson(Map<String, dynamic> json){
     return Character(
-      name: json['name'] as String, //1
-      series: json['series'] as String, //2
-      eye: List<String>.from(json['eye']), //3
-      hair: List<String>.from(json['hair']), //4
-      sex:  json['sex'] as String, //5
-      species: json['species'] as String, //6
-      occupation: List<String>.from(json['occupation']), //7
-      affiliation: List<String>.from(json['affiliation']), //8
-      status: json['status'] as String, //9
-      power: List<String>.from(json['power']), //10
+      name: json['name'] as String, 
+      series: json['series'] as String, 
+      eye: List<String>.from(json['eye']), 
+      hair: List<String>.from(json['hair']), 
+      sex:  json['sex'] as String, 
+      species: json['species'] as String, 
+      occupation: List<String>.from(json['occupation']), 
+      affiliation: List<String>.from(json['affiliation']), 
+      status: json['status'] as String, 
+      power: List<String>.from(json['power']), 
       signature: json['signature'] as String, 
       quote: json['quote'] as String,
     );

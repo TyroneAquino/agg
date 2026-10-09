@@ -25,7 +25,13 @@ Future<void> main() async {
     publishableKey: const String.fromEnvironment('SUPABASE_PUBLISHABLE_KEY'),
   );
 
-  await AuthRepository.ensureSignedIn();
+  bool signedIn = true;
+  try {
+    await AuthRepository.ensureSignedIn();
+  }catch (e){
+    debugPrint('Sign-in failed: $e');
+    signedIn = false;
+  }
 
   runApp(
     // DevicePreview draws a phone frame around your app, so it is judged at the
@@ -42,13 +48,15 @@ Future<void> main() async {
     // and set `enabled: !kReleaseMode`, which drops the frame in release builds.
     DevicePreview(
       enabled: true,
-      builder: (context) => const MyApp(),
+      builder: (context) => MyApp(signedIn: signedIn),
     ),
   );
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  final bool signedIn;
+
+  const MyApp({super.key, this.signedIn = true});
 
   @override
   Widget build(BuildContext context) {
@@ -68,7 +76,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFF6750A4)),
       ),   
 
-      home: const HomeScreen(),
+      home: signedIn ? const HomeScreen() : const _ConnectionErrorScreen(),
     );
   }
 }
@@ -77,6 +85,70 @@ class MyApp extends StatelessWidget {
 ///
 /// It is a StatefulWidget because it remembers something that changes: the
 /// counter. A screen that never changes can be a StatelessWidget instead.
+class _ConnectionErrorScreen extends StatefulWidget {
+  const _ConnectionErrorScreen();
+
+  @override
+  State<_ConnectionErrorScreen> createState() => _ConnectionErrorScreenState();
+}
+
+class _ConnectionErrorScreenState extends State<_ConnectionErrorScreen> {
+  bool retrying = false;
+  String? error;
+
+  Future<void> retry() async {
+    setState(() {
+      retrying = true;
+      error = null;
+    });
+
+    try {
+      await AuthRepository.ensureSignedIn();
+
+      if (!mounted) return;
+
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(builder: (_) => const HomeScreen()),
+      );
+    } catch (e) {
+      if (!mounted) return;
+
+      setState(() {
+        retrying = false;
+        error = 'Still can\'t connect. Check your internet and try again.';
+      });
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: AppColors.background,
+      body: Center(
+        child: Padding(
+          padding: EdgeInsets.all(AppSpacing.bs),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text('A.GG', style: AppTextTheme.mainlogo),
+              SizedBox(height: AppSpacing.xl),
+              Text(
+                error ?? 'Could not connect. Check your internet and try again.',
+                style: AppTextTheme.bodyText,
+                textAlign: TextAlign.center,
+              ),
+              SizedBox(height: AppSpacing.xl),
+              FilledButton(
+                onPressed: retrying ? null : retry,
+                child: Text(retrying ? 'Connecting...' : 'Retry'),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
 
 class HomeScreen extends StatefulWidget{
     const HomeScreen({super.key});
@@ -100,7 +172,7 @@ class _HomeScreenState extends State<HomeScreen>{
       try{
         await ProgressRepository.restore(gameState);
       }catch (e){
-        debugPrint('Daled top restore progress');
+        debugPrint('Failed to restore progress');
       }
 
     }

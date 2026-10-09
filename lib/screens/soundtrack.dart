@@ -96,6 +96,7 @@ class _SoundtrackScreenState extends State<SoundtrackScreen>{
           widget.gameState.soundtrackNamesInitialized = true;
         }
 
+        widget.gameState.removeGuessedDailyNames();
         dailyList = List.from(widget.gameState.dailySoundtrackNames);
         practiceList = List.from(widget.gameState.practiceSoundtrackNames);
 
@@ -108,30 +109,6 @@ class _SoundtrackScreenState extends State<SoundtrackScreen>{
         yesterdayAnswer = yesterday.anime;
 
         isLoading = false;
-      });
-
-      setState(() {
-        animeNames = List.from(finalNames);
-        //inititalized the shared choices only once
-        if(!widget.gameState.soundtrackNamesInitialized){
-          widget.gameState.dailySoundtrackNames = List.from(finalNames);
-          widget.gameState.practiceSoundtrackNames = List.from(finalNames);
-          widget.gameState.soundtrackNamesInitialized = true;
-        }
-
-        //restore the remaining choices
-        dailyList = List.from(widget.gameState.dailySoundtrackNames);
-        practiceList = List.from(widget.gameState.practiceSoundtrackNames);
-
-        // Keep the answer if it was already loaded.
-        widget.gameState.dailySoundtrackAnswer ??= dailyAnswer;
-        widget.gameState.practiceSoundtrackAnswer ??= practiceAnswer;
-
-        widget.gameState.soundtrackStats = soundtrackStats;
-        stats = soundtrackStats;
-
-        isLoading = false;
-
       });
 
     }catch(e, stackTrace){
@@ -224,7 +201,7 @@ class _SoundtrackScreenState extends State<SoundtrackScreen>{
         }
         });
 
-        await ProgressRepository.save(widget.gameState);
+        await ProgressRepository.save(widget.gameState);  
 
         if(!isGameOver) return;
 
@@ -368,6 +345,17 @@ class _SoundtrackScreenState extends State<SoundtrackScreen>{
                   ],
                     
                   SizedBox(height: AppSpacing.md),
+
+                  if(currentMode == GameMode.practice && widget.gameState.practiceSoundtrackCompleted)...[
+                    SizedBox(height: AppSpacing.md),
+                    GeneralButton(
+                      title: 'Play Again', 
+                      color: AppColors.soundtrack, 
+                      onPressed: () async {
+                        await resetPractice();
+                      },
+                    ),
+                  ],
 
                   if(!isCompleted)
                     Textbox(minigame: minigame, names:names, onSubmit: addGuess),

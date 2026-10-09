@@ -29,16 +29,16 @@ class Anime {
 
   factory Anime.fromJson(Map<String, dynamic> json){
     return Anime(
-      name: json['name'] as String, //1
+      name: json['name'] as String, 
       altName: json['altName'] as String?, 
-      year: json['year'] as int, //2
-      season: json['season'] as String, //3
-      theme: List<String>.from(json['theme']), //4
-      genre: List<String>.from(json['genre']), //5
-      demographic: json['demographic'] as String, //6
-      studio: List<String>.from(json['studio']), //7
-      source: json['source'] as String, //8
-      status: json['status'] as String, //9
+      year: json['year'] as int, 
+      season: json['season'] as String, 
+      theme: List<String>.from(json['theme']), 
+      genre: List<String>.from(json['genre']), 
+      demographic: json['demographic'] as String, 
+      studio: List<String>.from(json['studio']), 
+      source: json['source'] as String, 
+      status: json['status'] as String, 
       format: List<String>.from(json['format']),
       synopsis: json['synopsis'] as String,
     );

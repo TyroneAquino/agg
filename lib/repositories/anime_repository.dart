@@ -6,11 +6,11 @@ class AnimeRepository {
   static List<String>? _cachedNames;
 
   static Future<List<String>> getNames() async {
-    // Already loaded → return cache
+    // Already loaded -> return cache
     if (_cachedNames != null) {
       return _cachedNames!;
     }
-     // First request → get data from Supabase
+     // First request -> get data from Supabase
     final response = await _supabase
         .from('anime')
         .select('name');

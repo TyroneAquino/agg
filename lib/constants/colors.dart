@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class AppColors {
  static const Color background = Color(0xFF0B1020);
- static const Color subBackground = Color(0xFF243043); //subbackground
+ static const Color subBackground = Color(0xFF243043); 
  static const Color border = Color(0xFF475569);
  static const Color subBorder = Color(0xFF64748B);
  static const Color body = Color(0xFFF8FAFC);

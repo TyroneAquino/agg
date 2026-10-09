@@ -7,3 +7,4 @@ export 'package:agg/widgets/dialog_box.dart';
 export 'package:agg/widgets/guess_row_anime.dart';
 export 'package:agg/widgets/guess_row_character.dart';
 export 'package:agg/widgets/guess_column.dart';
+export 'package:agg/widgets/general_button.dart';

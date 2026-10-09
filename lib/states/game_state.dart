@@ -78,6 +78,17 @@ class GameState{
     };
   }
 
+  void removeGuessedDailyNames(){
+    void strip(List<String> names, Iterable<String> guessed){
+      final used = guessed.map((n) => n.trim().toLowerCase()).toSet();
+      names.removeWhere((n) => used.contains(n.trim().toLowerCase()));
+    }
+
+    strip(dailyAnimeNames, dailyAnimeGuesses.map((anime)=>anime.name));
+    strip(dailyCharacterNames, dailyCharacterGuesses.map((character)=>character.name));
+    strip(dailySoundtrackNames, dailySoundtrackGuesses.map((soundtrack)=>soundtrack.anime));
+  }
+
   void clearDailyProgress(){
     dailyAnimeGuesses.clear();
     dailyAnimeAttempts = 0;

@@ -4,7 +4,7 @@ import 'package:agg/states/game_state.dart';
 import 'package:agg/widgets/minigame_button.dart';
 import 'package:flutter/material.dart';
 import 'package:agg/widgets/general_button.dart';
-import 'package:agg/widgets/device_transfer_dialog.dart';
+import 'package:agg/dialogs/device_transfer_dialog.dart';
 import 'package:agg/constants/app_themes.dart';
 import 'package:agg/models/soundtrack_class.dart';
 import 'package:agg/dialogs/dialog_help.dart';
@@ -37,7 +37,8 @@ class AppDialog extends StatelessWidget{
 
     switch(title){
       
-      //settiings
+      //--------------SETTINGS-------------------------------------------------
+
       case(DialogType.settings):
         return Column(
           mainAxisSize: MainAxisSize.min,
@@ -84,13 +85,13 @@ class AppDialog extends StatelessWidget{
                 );
               },
             ),
-          
+
+            SizedBox(height: AppSpacing.bs),
             ListTile(
-              leading: const Icon(Icons.devices),
-              title: const Text('Switch Device'),
-              subtitle: const Text(
-                'Transfer your A.GG progress',
-              ),
+              tileColor: AppColors.subBorder,
+              leading: Icon(appIcons['device'], color: AppColors.body,),
+              title: Text('Switch Device', style: AppTextTheme.bodyText),
+              subtitle: Text('Transfer your A.GG progress', style: AppTextTheme.guessText),
               onTap: () {
                 showDialog(
                   context: context,
@@ -110,7 +111,8 @@ class AppDialog extends StatelessWidget{
           ],
         );
 
-      //gamestats
+      //--------------Statistics-------------------------------------------------
+
       case(DialogType.statistics):
         return Column(
           mainAxisSize: MainAxisSize.min,
@@ -149,7 +151,7 @@ class AppDialog extends StatelessWidget{
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text('Average Guess', style: AppTextTheme.bodyText),
-                Text(stats?.averageGuess.toString() ?? '0', style: AppTextTheme.bodyText),
+                Text(stats?.averageGuess.toStringAsFixed(2) ?? '0', style: AppTextTheme.bodyText),
                 
               ],
             ),
@@ -181,7 +183,8 @@ class AppDialog extends StatelessWidget{
           ],
         );
 
-      //how to play
+      //--------------HOW TO PLAY-------------------------------------------------
+
       case(DialogType.help):
         return Column(
           mainAxisSize: MainAxisSize.min,
@@ -207,7 +210,8 @@ class AppDialog extends StatelessWidget{
           ],
         );
       
-      //daily victory
+      //--------------DAILY MODE(VICOTRY)-------------------------------------------------
+
       case(DialogType.victory):
         final answerName = switch(minigame){
           MinigameType.anime => gameState?.dailyAnimeAnswer?.name,
@@ -290,7 +294,8 @@ class AppDialog extends StatelessWidget{
           ]
         );
 
-      //daily lose
+      //--------------DAILY MODE(LOSE)-------------------------------------------------
+
       case(DialogType.lose):
       final answerName = switch(minigame){
           MinigameType.anime => gameState?.dailyAnimeAnswer?.name,
@@ -373,7 +378,8 @@ class AppDialog extends StatelessWidget{
           ]
         );  
 
-      //practice done
+      //--------------PACTICE MODE END-------------------------------------------------
+
       case(DialogType.practice):
         final answerName = switch(minigame){
           MinigameType.anime => gameState?.practiceAnimeAnswer?.name,
@@ -433,6 +439,8 @@ class AppDialog extends StatelessWidget{
     }
   }
 }
+
+//--------------SOUNDTRACK CREDITS-------------------------------------------------
 
 class SoundtrackDialog extends StatelessWidget{
   final Soundtrack? soundtrack;

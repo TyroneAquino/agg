@@ -72,6 +72,7 @@ class _CharacterScreenState extends State<CharacterScreen>{
         }
 
         //restore the remaining choices
+        widget.gameState.removeGuessedDailyNames();
         dailyList = List.from(widget.gameState.dailyCharacterNames); 
         practiceList =  List.from(widget.gameState.practiceCharacterNames); 
 
@@ -334,6 +335,15 @@ class _CharacterScreenState extends State<CharacterScreen>{
                         ),
                       ),
                     ],
+                  
+                  if(currentMode == GameMode.practice && widget.gameState.practiceCharacterCompleted)
+                    GeneralButton(
+                      title: 'Play Again', 
+                      color: AppColors.character, 
+                      onPressed: () async {
+                        await resetPractice();
+                      },
+                    ),
 
                   //Textbox
                   if(!isCompleted)

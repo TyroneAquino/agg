@@ -102,8 +102,8 @@ class _TextboxState extends State<Textbox>{
                     style: AppTextTheme.bodyText,
                     decoration: InputDecoration(
                       labelText: widget.minigame.name.toUpperCase(),
-                      labelStyle: AppTextTheme.bodyText,
-                      enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: AppColors.subBorder, width: 4)),
+                      labelStyle: AppTextTheme.labelText,
+                      enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: AppColors.border, width: 4)),
                       focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: AppColors.subBorder, width: 4)),
                       errorText: _errorText,
                     ),

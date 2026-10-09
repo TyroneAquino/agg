@@ -13,5 +13,6 @@ const Map<String, IconData> appIcons = {
     'higher': Icons.arrow_upward,
     'play': Icons.play_circle_fill,
     'pause': Icons.pause_circle_filled,
-    'close': Icons.close
+    'close': Icons.close,
+    'device': Icons.devices,
 };

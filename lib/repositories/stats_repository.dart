@@ -106,11 +106,18 @@ class StatsRepository {
       return stats;
     }
 
+    final previous = _dateOf(stats.lastRecordedPuzzle);
+    final today = _dateOf(puzzleKey);
+    
+    if (previous != null && today != null && today.difference(previous).inDays > 1){
+      stats.currentStreak = 0;
+    }
+
     stats.puzzlesPlayed++;
+    stats.totalGuesses += guesses;
 
     if(won){
       stats.puzzlesSolved++;
-      stats.totalGuesses += guesses;
 
       if(guesses == 1){
         stats.oneShots++;
@@ -118,25 +125,29 @@ class StatsRepository {
 
       stats.currentStreak++;
 
-      if (stats.currentStreak > stats.longestStreak) {
+      if(stats.currentStreak > stats.longestStreak){
         stats.longestStreak = stats.currentStreak;
       }
 
-    } else  {
+    } else{
       stats.currentStreak = 0;
     }
-    
-    stats.lastRecordedPuzzle = puzzleKey; 
+
+    stats.lastRecordedPuzzle = puzzleKey;
 
     await _saveAll(allStats);
-    final savedStats = (allStats);
-
-    debugPrint(
-      'Verified saved stats: ${savedStats[key]!.toJson()}',
-    );
-    debugPrint('========== DAILY RESULT RECORDED ==========');
-
+    
     return stats;
+
+  }
+
+  static DateTime? _dateOf(String? puzzleKey) {
+    if (puzzleKey == null) return null;
+    final dash = puzzleKey.indexOf('-');          
+    if (dash < 0) return null;
+    final parsed = DateTime.tryParse(puzzleKey.substring(dash + 1));
+    if (parsed == null) return null;
+    return DateTime.utc(parsed.year, parsed.month, parsed.day);
   }
 
 }

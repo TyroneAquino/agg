@@ -3,6 +3,9 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:agg/constants/colors.dart';
 
 class AppTextTheme {
+  //Bangers for logo
+  //Inter for others
+ 
   static final TextStyle mainlogo = GoogleFonts.bangers(
     fontSize: 128, 
     fontWeight: FontWeight.bold, 
@@ -33,6 +36,13 @@ class AppTextTheme {
     color: AppColors.body
   );
 
+  static final TextStyle codeText = GoogleFonts.inter(
+    fontSize: 24, 
+    fontWeight: FontWeight.bold, 
+    color: AppColors.body,
+    letterSpacing: 3,
+  );
+
   static final TextStyle bodyLarge = GoogleFonts.inter(
     fontSize: 20, 
     fontWeight: FontWeight.bold, 
@@ -42,6 +52,22 @@ class AppTextTheme {
   static final TextStyle bodyText = GoogleFonts.inter(
     fontSize: 16, 
     color: AppColors.body
+  );
+
+  static final TextStyle labelText = GoogleFonts.inter(
+    fontSize: 16, 
+    color: AppColors.subBorder
+  );
+
+  static final TextStyle hintText = GoogleFonts.inter(
+    fontSize: 16, 
+    color: AppColors.border
+  );
+
+  static final TextStyle bodyBold = GoogleFonts.inter(
+    fontSize: 16, 
+    color: AppColors.body,
+    fontWeight: FontWeight.bold
   );
 
   static final TextStyle captionText = GoogleFonts.inter(
