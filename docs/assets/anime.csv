@@ -1,0 +1,57 @@
+id,name,alt_name,year,season,theme,genre,demographic,studio,source,status,format,synopsis
+1,One Piece,,1999,Fall,Post-Apocalypse,"Action, Adventure, Fantasy",Shounen,Toei Animation,Manga,Ongoing,TV,Boy goes on a journey to become the most wanted man.
+2,Naruto,,2002,Fall,Martial Arts,"Action, Adventure, Fantasy",Shounen,Studio Pierrot,Manga,Finished,TV,Orphaned outcasts train to be recognized by his village.
+3,Bleach,,2004,Fall,Super Power,"Action, Adventure, Supernatural",Shounen,Studio Pierrot,Manga,Ongoing,TV,Teenager who can see ghost took on the role of Grim Reaper.
+4,Dragon Ball,,1986,Winter,Martial Arts,"Action, Adventure, Comedy, Fantasy",Shounen,Toei Animation,Manga,Finished,TV,Collecting 7 artifacts can grant the collector one wish.
+5,Death Note,,2006,Fall,Psychological,"Supernatural, Suspense",Shounen,Madhouse,Manga,Finished,TV,Powerful book falls in the hands of a high school student with god-complexity.
+6,Fullmetal Alchemist,,2003,Fall,Military,"Action, Adventure, Drama, Fantasy",Shounen,Bones,Manga,Finished,TV,Boy looks for a legendary stone to fix his mistake.
+7,Kimetsu no Yaiba,Demon Slayer,2019,Spring,Historical,"Action, Supernatural",Shounen,ufotable,Manga,Finished,TV,A boy learned how to breathe just to defeat Michael Jackson.
+8,Hunter x Hunter,,2011,Fall,Super Power,"Action, Adventure, Fantasy",Shounen,Madhouse,Manga,Finished,TV,Boy finds out that his presumed deceased father was actually a notable figure.
+9,Jujutsu Kaisen,,2020,Fall,School,"Action, Supernatural",Shounen,MAPPA,Manga,Finished,TV,Highschool student finds out that eating a cursed item is bad news.
+10,Attack on Titan,Shingeki no Kyojin,2013,Spring,"Gore, Military, Survival","Action, Drama, Suspense",Shounen,"MAPPA, Wit Studio",Manga,Finished,TV,All of this happened because of me?
+11,Sailor Moon,,1992,Spring,Magical Girl,Romance,Shoujo,Toei Animation,Manga,Finished,TV,Saving a cat gave a girl more responsibilities.
+12,Berserk,,2016,Summer,"Gore, Military, Psychological","Action, Adventure, Drama, Fantasy, Horror",Seinen,"GEMBA, Millepensee",Manga,Finished,TV,A man will defy his fate no matter what it takes.
+13,Vinland Saga,,2019,Summer,"Gore, Historical","Action, Adventure, Drama",Seinen,"MAPPA, Wit Studio",Manga,Finished,TV,Viking goes from seeking vengeance to seeking peace.
+14,Monster,,2004,Spring,Psychological,"Drama, Mystery, Suspense",Seinen,Madhouse,Manga,Finished,TV,Man hunts a monster he once saved.
+15,Tokyo Ghoul,,2014,Summer,"Gore, Psychological, Urban Fantasy","Action, Fantasy, Horror, Suspense",Seinen,Studio Pierrot,Manga,Finished,TV,College man tries to find his place in two different worlds.
+16,Doraemon,,1979,Spring,Anthromorphic,"Adventure, Comedy, Fantasy, Sci-Fi",Kodomomuke,Shin-Ei Animation,Manga,Finished,TV,Boy got all his problem solved by his blue companion.
+17,Grand Blue,,2018,Summer,Gag Humor,Comedy,Seinen,"Liber, Zero-G",Manga,Finished,TV,Freshman finds out the diving club he joined has a big drowning problem.
+18,Banana Fish,,2018,Summer,"Delinquents, Organized Crimes, Psychological","Action, Adventure, Drama, Suspense",Shoujo,MAPPA,Manga,Finished,TV,Street gang leader uncovers a conspiracy tied to a mysterious drug and his troubled past.
+19,Blue Lock,,2022,Fall,Team Sports,Sports,Shounen,8bit,Manga,Finished,TV,Highschooler aims to be the best goal scorer in the world.
+20,Dr. Stone,,2019,Summer,Scientific,"Adventure, Comedy",Shounen,TMS Entertainment,Manga,Finished,TV,Scientists rebuilds the modern world from scratch.
+21,Haikyuu,,2014,Spring,"School, Team Sports",Sports,Shounen,Production I.G,Manga,Finished,TV,Short highschooler dreams to be a great volleyball player.
+22,Yu Gi Oh,,1998,Spring,Strategy Game,"Action, Comedy, Fantasy",Shounen,Toei Animation,Manga,Finished,TV,I fight with my deck of cards.
+23,Citrus,,2018,Winter,School,"Drama, Yuri",Not Specified,Passione,Manga,Finished,TV,Girl's life changed after getting her first kiss stolen.
+24,Oshi no Ko,,2023,Spring,"Reincarnation, Showbiz",Drama,Seinen,Doga Kobo,Manga,Finished,TV,Doctor is reborn as the child of his favorite idol and uncovers the dark secret of the entertainment industry.
+25,Fruits Basket,,2001,Summer,"Love Polygon, School","Drama, Romance, Supernatural",Shoujo,Doga Kobo,Manga,Finished,TV,Orphaned girl moves in with a mysterious family cursed to transform into animals of zodiac.
+26,Ouran Koukou Host Club,Ouran Highschool Host Club,2006,Spring,"Crossdressing, Reverse Harem, School","Comedy, Romance",Shoujo,Bones,Manga,Finished,TV,Student looks boyish enough to serve at a host club.
+27,Wotakoi,,2018,Spring,"Otaku Culture, Workplace","Comedy, Romance",Josei,A-1 Pictures,Web Manga,Finished,TV,Office worker reunites with her childhood friend and starts dating a fellow otaku.
+28,One Punch Man,,2015,Fall,"Parody, Super Power","Action, Comedy",Shounen,"J.C.Staff, Madhouse",Web Manga,Finished,TV,Bald man one shots his enemy.
+29,Classroom of the Elite,Youkoso Jitsuryoku Shijou Shugi no Kyoushitsu e,2017,Summer,"Psychological, School","Drama, Suspense",Not Specified,Lerche,Light Novel,Finished,TV,Introvert uses his skills in piano and calligraphy to benefit himself.
+30,Rising of the Shield Hero,Tate no Yuusha no Nariagari,2019,Winter,Isekai,"Action, Adventure, Drama, Fantasy",Not Specified,"DRMOVIE, Kinema Citrus",Light Novel,Finished,TV,Man needs to defeat the enemies with only a shield.
+31,Konosuba,,2016,Winter,"Isekai, Parody","Adventure, Comedy, Fantasy",Not Specified,"Drive, Studio Deen",Light Novel,Finished,"Movie, TV",Man suffers because of his phobia to tractors.
+32,Oresuki,,2019,Fall,"Harem, School","Comedy, Romance",Not Specified,Connect,Light Novel,Finished,"OVA, TV",Highschooler's suffering happens because of a baseball game and a bench.
+33,Overlord,,2015,Summer,Isekai,"Action, Adventure, Fantasy",Not Specified,Madhouse,Light Novel,Finished,TV,Gamer gets trapped because he refused to log out.
+34,Re:Zero kara Hajimeru Isekai Seikatsu,,2016,Spring,"Isekai, Psychological, Time Travel","Drama, Fantasy, Suspense",Not Specified,White Fox,Light Novel,Finished,TV,Grocery run turns into endless suffering and reincarnation.
+35,Another,,2012,Winter,"Gore, School","Horror, Mystery",Not Specified,P.A. Works,Novel,Finished,TV,Cursed middle school classroom plagued by gruesome and unnatural deaths.
+36,Bloom into You,Yagate Kimi ni Naru,2018,Winter,School,"Drama, Yuri",Shoujo,TROYCA,Manga,Finished,TV,Girl teaches a person who dont know love how to love by using themselves as test subjects.
+37,Fate/stay night,,2006,Winter,Urban Fantasy,"Action, Fantasy, Romance",Not Specified,Studio Deen,Visual Novel,Finished,TV,Student got dragged into a battle royale by accidentally summoning the ruler of an ancient kingdom.
+38,Stein's Gate,,2011,Spring,"Psychological, Time Travel","Drama, Sci-Fi, Suspense",Not Specified,White Fox,Visual Novel,Finished,TV,Self proclaimed mad scientist accidentally creates time travelling after modifying a microwave.
+39,Pokemon,,1997,Spring,Super Power,"Action, Adventure, Comedy, Fantasy",Kodomomuke,OLM,Video Game,Finished,TV,Young kid throws his best friend at monsters.
+40,Cyberpunk: Edgerunners,,2022,Fall,"Gore, Organized Crime","Action, Sci-Fi",Not Specified,Trigger,Video Game,Finished,ONA,Orphan joins a group of outlaws that target rich corporations.
+41,Darling in the FranXX,,2018,Winter,Mecha,"Drama, Romance, Sci-Fi",Not Specified,"A-1 Pictures, CloverWorks, Trigger",Original,Finished,TV,Man risks his life just to copilot a robot.
+42,Cowboy Bebop,,1998,Spring,Space,"Action, Sci-Fi",Seinen,Sunrise,Original,Finished,TV,Ragtag bounty hunters travels across the space.
+43,Neon Genesis Evangelion,Shinseiki Evangelion,1995,Fall,"Mecha, Psychological","Avant Garde, Drama, Sci-Fi, Suspense",Unknown,"Gainax, Tatsunoko Production",Original,Finished,TV,Man planned everything perfectly to end himself.
+44,Code Geass,,2006,Fall,"Mecha, Military, School, Super Power","Drama, Sci-Fi",Not Specified,Sunrise,Original,Finished,TV,Father forces his son to be humanity's savior by putting him in a machine.
+45,Yuri on Ice,,2016,Fall,Performing Arts,Sports,Not Specified,MAPPA,Original,Finished,TV,Athlete falls for his coach that will help him go back up.
+46,Psycho Pass,,2012,Fall,"Detective, Psychological","Action, Mystery, Sci-Fi, Suspense",Not Specified,Production I.G,Original,Finished,TV,Police department arrests people who are mentally unstable.
+47,Serial Experiments Lain,,1998,Summer,Psychological,"Avant Garde, Drama, Mystery, Sci-Fi, Supernatural, Suspense",Not Specified,Triangle Staff,Original,Finished,TV,Girl finds out how deep the dark web goes.
+48,A Silent Voice,Koe no Katachi,2016,Fall,School,Drama,Shounen,Kyoto Animation,Manga,Finished,Movie,Bully tries to redeem himself to his deaf victim.
+49,Spirited Away,Sen to Chihiro no Kamikakushi,2001,Summer,Mythology,"Adventure, Fantasy",Not Specified,Studio Ghibli,Original,Finished,Movie,Girl gets trapped in a magical realm after her parents turn into livestock.
+50,Your Name,Kimi no Na Wa,2016,Summer,Time Travel,Drama,Not Specified,CoMix Wave Films,Original,Finished,Movie,Two teenagers who swapped bodies tries to prevent a tragedy.
+51,Princess Mononoke,Hime Mononoke,1997,Summer,Historical,"Action, Adventure, Fantasy",Not Specified,Studio Ghibli,Original,Finished,Movie,Young warrior finds the cure of the curse he caused after defeating an oppressor.
+52,Akira,,1988,Summer,"Gore, Super Power","Action, Horror, Sci-Fi",Seinen,Tokyo Movie Shinsha,Manga,Finished,Movie,Biker gets psychic ability that can threaten his hometown.
+53,FLCL,,2000,Spring,"Mecha, Parody, Psychological","Avant Garde, Comedy, Sci-Fi, Suspense",Not Specified,"Gainax, Production I.G",Original,Finished,OVA,Adolescent's boring life suddenly get overturned after meeting an alien riding a scooter.
+54,Chainsmoker Cat,Yani Neko,2026,Summer,"Anthropomorphic, Urban Fantasy","Comedy, Fantasy",Seinen,Bibury Animation Studios,Manga,Ongoing,TV,Humanoid beings with extreme vice addiction.
+55,Kaguya-sama: Love is War,,2019,Winter,School,"Comedy, Romance",Seinen,A-1 Pictures,Manga,Finished,TV,Person will win the battle if they let their opponent admit their feeling first.
+

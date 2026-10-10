@@ -44,4 +44,3 @@ Row Level Security (RLS) is enabled on every table. Schema, policies and grants 
 - [✓] No course or university credentials anywhere
 - [✓] Anyone whose data appears in a test was asked first
 
-If you found and revoked a key while doing this, say so here. Catching it is the right outcome, not an embarrassment.

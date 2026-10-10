@@ -1,0 +1,127 @@
+id,name,series,eye,hair,sex,species,occupation,affiliation,status,power,signature,quote
+1,Monkey D. Luffy,One Piece,Black,Black,Male,Human,Pirate,Straw Hat Pirates,Alive,"Devil Fruit, Haki",Straw Hat,"I'm gonna be the king of the pirates!"
+2,Roronoa Zoro,One Piece,Black,Green,Male,Human,Pirate,Straw Hat Pirates,Alive,Haki,Three Swords,"Nothing happened."
+3,Nico Robin,One Piece,Blue,Black,Female,Human,"Pirate, Archeologist",Straw Hat Pirates,Alive,Devil Fruit,Devil Child,"I want to live! Take me to the sea with you!"
+4,Gol D. Roger,One Piece,Black,Black,Male,Human,Pirate,Roger Pirates,Deceased,Haki,Pirate King,"My Treasure? Go look for it. I left all of it at that place."
+5,Pedro,One Piece,Black,Blond,Male,Mink,"Musketeer, Pirate","Guardians, Ninja-Pirate-Mink-Samurai Alliance",Deceased,Haki,Jaguar,"There is no point in dying here! The dawn of the new world is coming"
+6,Uzumaki Naruto,Naruto,Blue,Blond,Male,Jinchuriki,Hokage,Konohagakure,Alive,Chakra,Nine Tailed Beast,"Dattebayo"
+7,Haruno Sakura,Naruto,Green,Pink,Female,Human,Ninja,Konohagakure,Alive,Chakra,Cherry Blossoms,"Shānnarō!"
+8,Uchiha Itachi,Naruto,Black,Black,Male,Human,Ninja,"Akatsuki, Konohagakure, Uchiha Clan",Deceased,Chakra,Mangekyō Sharingan,"Sorry Sasuke. But this is it."
+9,Jiraiya,Naruto,Gray,White,Male,Human,Ninja,Konohagakure,Deceased,Chakra,Frog Sage,"Naruto you are the child of prophecy. I leave the rest to you"
+10,Rukia Kuchiki,Bleach,Black,Black,Female,Soul,Soul Reaper,Soul Society,Alive,Zanpakuto,Ice Princess,"If you can say that your heart is unchanging, then that is strength."
+11,Yhwach,Bleach,Black,Black,Male,Quincy,Quincy King,Soul King,Alive,Auswählen,Quincy King,"May I pass, Ichibe Hyousube?"
+12,Urahara Kisuke,Bleach,Gray,Beige,Male,Soul,"Shop Owner, Soul Reaper","Soul Society, Urahara Shop",Alive,Zanpakuto,Inventor,"Bankai: Kannonbiraki Benihime Aratame"
+13,Yagami Light,Death Note,Brown,Brown,Male,Human,"Detective, Graduate Student, Police Officer","Japanese Task Force, National Police Agency",Deceased,Death Note,Kira,"What do you think of that L? It's my perfect victory!"
+14,Ryuk,Death Note,Black,Black,Male,Shinigami,God of Death,Shinigami Realm,Alive,Shinigami Eyes,Apples,"Farewell Light. It's been interesting."
+15,Kamado Tanjiro,Kimetsu no Yaiba,Red,Black,Male,Human,Demon Hunter,"Demon Slayer Corps, Kamado Clan",Alive,Breathing,Strong Headbutt,"Hinokami Kagura: Enbu"
+16,Rengoku Kyojuro,Kimetsu no Yaiba,Red,Blond,Male,Human,Demon Hunter,Demon Slayer Corps,Deceased,Breathing,Fire Pillar,"Set your heart ablaze!"
+17,Kibutsuji Muzan,Kimetsu no Yaiba,Red,Black,Male,Demon,Progenitor of Demons,Twelve Kizuki,Alive,Blood Demon Art,Michael Jackson,"Try it if you can, Kamado Tanjiro!"
+18,Son Goku,Dragon Ball,"Black, Green, Blue","Black, Blond, Blue",Male,Saiyan,Martial Artist,Earth,Alive,Ki,He ain't beating,"Sorry, there was no other place to put him in"
+19,Bulma,Dragon Ball,Blue,"Green, Blue",Female,Human,"CEO, Engineer, Scientist",Capsule Corporation,Alive,None,Dragon Radar,"I am an exceptionally good person. My only crime is being beautiful."
+20,Edward Elric,Fullmetal Alchemist,Yellow,Blond,Male,Human,Alchemist,Amestrian State Military,Alive,Alchemy,Alchemist Prodigy,"I'm not short! I'm fun-sized!"
+21,Erwin Smith,Attack on Titan,Blue,Blond,Male,Human,Soldier,Survey Corps,Deceased,None,13th Commander,"My soldiers scream! My soldiers rage! My soldiers fight!"
+22,Armin Arlelt,Attack on Titan,Blue,Blond,Male,Human,Soldier,Survey Corps,Alive,Titan Shifting,15th Commander,"To rise above monsters, we must become monsters ourselves."
+23,Eren Jaeger,Attack on Titan,Green,Brown,Male,Human,Soldier,"Jaegerist, Survey Corps",Deceased,Titan Shifting,Demon of Paradis,"What did Sasha say before she died?"
+24,Usagi Tsukino,Sailor Moon,Blue,Blond,Female,Human,"Protector, Student",Solar System Sailor Guardians,Alive,Sailor Crystals,Moon,"I am the pretty sailor who fights for love and for justice."
+25,Satoru Gojo,Jujutsu Kaisen,Blue,White,Male,Human,"Sorcerer, Teacher","Gojo Clan, Tokyo Jujutsu High",Sealed,Curse Energy,Enlightened One,"After all, you are weak."
+26,Mahito,Jujutsu Kaisen,"Blue, Gray",Blue-Green,Other,Curse Spirit,Curse Spirit,Disaster Curse,Absorbed,Curse Energy,Idle Transfiguration,"Ryoiki Tenkai: Jihei Endonka"
+27,Meruem,Hunter x Hunter,Violet,None,Male,Chimera Ant,Chimera Ants,King of the Chimera Ants,Deceased,Nen,King,"Will you call me by my name... one last time?"
+28,Killua Zoldyck,Hunter x Hunter,Blue,White,Male,Human,Hunter,Zoldyck Clan,Alive,Nen,Yoyo,"Not killing people is really hard. Clean living is tough."
+29,Guts,Berserk,Black,Black,Male,Human,Swordsman,Black Swordsman Party,Alive,None,Black Swordsman,"Why don't I ever realize what I have until it's lost to me?"
+30,Thorfinn,Vinland Saga,Brown,Blond,Male,Human,"Sailor, Merchant",Arnheid Village,Alive,None,Character,"I have no enemies."
+31,Johan Liebert,Monster,Gray,Blond,Male,Human,Serial Killer,None,Unknown,None,Monster,"The monster was never under my bed. It has always been inside my head."
+32,Kirishima Touka,Tokyo Ghoul,Red,Blue,Female,Ghoul,"Student, Cafe Worker",Anteiku,Alive,Kagune,Ukaku,"Are you still a virgin?"
+33,Yoshimura Eto,Tokyo Ghoul,"Green, Red",Green,Female,Human-Ghoul Hybrid,Writer,Aogiri Tree,Unknown,Kagune,One-eyed Owl,"The woman who bestowed this tragedy upon you is Kamishiro Rize."
+34,Doraemon,Doraemon,Black,Blue,Other,Robot,Caretaker,Nobita Household,Alive,None,Blue Cat,"What is this time, Nobita?"
+35,Ash Lynx,Banana Fish,Green,Blond,Male,Human,Gang Leader,Ash's Gang,Unknown,None,Gang Leader,"Take me somewhere we can be alone."
+36,Kitahara Iori,Grand Blue,Violet,Black,Male,Human,College Student,Peek-a-boo,Alive,None,Mr. Izu,"Chisa. Nice buddy!"
+37,Kotegawa Chisa,Grand Blue,Amber,Brown,Female,Human,College Student,Peek-a-boo,Alive,None,Ms. Izu,"I never imagined Iori would grow up to be so stupid."
+38,Jinpachi Ego,Blue Lock,Black,Black,Male,Human,"Coach, Trainer",Blue Lock,Alive,None,Ego,"Hello there. Lump of talents."
+39,Ishigami Senku,Dr. Stone,Red,White,Male,Human,Scientist,Kingdom of Science,Alive,None,1000000%,"I'm going to use the power of science to save every single person."
+40,Kohaku,Dr. Stone,Teal,Blond,Female,Human,Combatant,"Ishigami Village, Kingdom of Science",Alive,None,Lioness,"All that's left now is to trust science and others and wait."
+41,Shoyo Hinata,Haikyuu,Brown,Orange,Male,Human,Volleyball Player,Karasuno High,Alive,None,Chibi-chan,"Do you need a reason not to want to lose?"
+42,Hoshino Ai,Oshi no Ko,Indigo,Violet,Female,Human,"Actress, Idol, Fashion Model",Ichigo Production Inc,Deceased,None,Star,"Ruby. Aqua. I love you."
+43,Saitama,One Punch Man,Black,Black?,Male,Human,Professional Hero,Hero Association,Alive,None,Caped Baldy,"I leave tomorrow's problem to tomorrow's me."
+44,Genos,One Punch Man,Yellow,Blond,Male,Cyborg,Professional Hero,Hero Association,Alive,Energy Core,Caped Baldy's disciple,"I can't picture myself even approaching Master's power."
+45,Ayanokoji Kiyotaka,Classroom of the Elite,Brown,Brown,Male,Human,Highschool Student,Advanced Nurturing High School,Alive,None,"Piano and Calligraphy","In this world winning is everything. In the end I'm going to win."
+46,Ryuen Kakeru,Classroom of the Elite,Magenta,Magenta,Male,Human,Highschool Student,Advanced Nurturing High School,Alive,None,Leader of Class C,"Who in their right mind would fight a gorilla alone?"
+47,Raphtalia,Rising of the Shield Hero,Red,Brown,Female,Demihuman,Warrior,Shield Hero's Party,Alive,Magic,Raccoon,"I was saved by him. He gave me a sword, and he gave me a purpose. That is why I fight for him."
+48,Kazuma Satou,Konosuba,Green,Brown,Male,Human,Adventurer,"Kingdom of Belzerg, Adventurer Guild, Silver-Haired Thief Brigade",Resurrected,Magic,Gender Equality,"My partner... uhh... Kikuichimonji? Kogarasumaru?"
+49,Megumin,Konosuba,Crimson,Black,Female,Human,Wizard,"Kingdom of Belzerg, Adventurer Guild, Crimson Demons",Alive,Magic,Explosion,"This sword's name is Chunchunmaru."
+50,Aqua,Konosuba,Blue,Blue,Female,God,Arch Priest,"Kingdom of Belzerg, Adventurer Guild",Alive,Magic,Crybaby Goddess,"I have never seen someone die so pathetically."
+51,Ainz Ooal Gown,Overlord,None,None,Male,Undead,"Adventurer, Guildmaster",Ainz Ooal Gown,Alive,Magic,Momonga,"The world is unfair. Inequality exists from the moment of birth."
+52,Albedo,Overlord,Gold,Black,Female,Succubus,Adventurer,Great Tomb of Nazarick,Alive,Magic,Guardian Overseer,"The man who rules over the Supreme Beings and our highest most exalted master."
+53,Pikachu,Pokemon,White,Yellow,Male,Pokemon,Pet,Ash Ketchum,Alive,Electric,Who is that Pokemon!,"Pika! Pika!"
+54,David Martinez,Cyberpunk: Edgerunners,Brown,Brown,Male,Cybernetically-enhanced Human,Mercenary,"David's Crew, Maine's Crew",Deceased,Datashard,Sandevistan,"Look mom! I'm here... very top of Arasaka Tower."
+55,Lucy Kushinada,Cyberpunk: Edgerunners,Multicolor,Multicolor,Female,Cybernetically-enhanced Human,Mercenary,Maine's Crew,Alive,Datashard,Netrunner,"Sorry. Wish we could go to the moon together."
+56,Asuka Langley Soryu,Neon Genesis Evangelion,Blue,Auburn,Female,Human,Pilot,"NERV, UN",Deceased,None,Tsundere,"Are you stupid?"
+57,No Face,Spirited Away,None,None,Unknown,Spirit,Spirit,None,Alive,"Absorption, Magic",Kaonashi,...
+58,Tetsuo Shima,Akira,Brown,Black,Male,Human (Esper),"Biker, Test Subject",Capsule Gang,Deceased,"Psychokinesis, Telekinesis",Referenced Motor Scene,"Kaneda!"
+59,Ishigami Yu,Kaguya-sama: Love is War,Brown,Dark Brown,Male,Human,Student Council Treasurer,Shuchiin Academy,Alive,None,Chika Dance,"I want to die. So I'm going home."
+60,Chika Fujiwara,Kaguya-sama: Love is War,Blue,Pink,Female,Human,Student Council Secretary,Shuchiin Academy,Alive,None,Depressed,"I raised that boy."
+61,Kaguya Shinomiya,Kaguya-sama: Love is War,Red,Black,Female,Human,Student Council Vice President,Shuchiin Academy,Alive,None,Rich,"O kawaii koto"
+62,Victor Nikiforov,Yuri on Ice,Blue,Silver,Male,Human,"Figure Skater, Coach",None,Alive,None,Best Coach,"Life and art are important to other people."
+63,Shōya Ishida,A Silent Voice,Brown,Black,Male,Human,Student,None,Alive,None,Bully to Friend,"Let's be friends."
+64,Haruko Haruhara,FLCL,Yellow,Pink,Female,Alien,"Investigator, Bassist",GSPB,Alive,Tech,Vespa,"Swing the bat."
+65,San,Princess Mononoke,Black,Green,Female,Human,Hunter,Moro's Clan,Alive,None,Wolf Princess,"I'm not afraid to die! I'd do anything to get you humans out of my forest!"
+
+
+
+
+ALTER TABLE characters
+ALTER COLUMN eye TYPE text[]
+USING CASE
+  WHEN eye IS NULL OR trim(eye) = '' THEN '{}'
+  ELSE string_to_array(eye, ',')
+END;
+
+ALTER TABLE characters
+ALTER COLUMN hair TYPE text[]
+USING CASE
+  WHEN hair IS NULL OR trim(hair) = '' THEN '{}'
+  ELSE string_to_array(hair, ',')
+END;
+
+ALTER TABLE characters
+ALTER COLUMN occupation TYPE text[]
+USING CASE
+  WHEN occupation IS NULL OR trim(occupation) = '' THEN '{}'
+  ELSE string_to_array(occupation, ',')
+END;
+
+ALTER TABLE characters
+ALTER COLUMN affliation TYPE text[]
+USING CASE
+  WHEN affliation IS NULL OR trim(affliation) = '' THEN '{}'
+  ELSE string_to_array(affliation, ',')
+END;
+
+ALTER TABLE characters
+ALTER COLUMN power TYPE text[]
+USING CASE
+  WHEN power IS NULL OR trim(power) = '' THEN '{}'
+  ELSE string_to_array(power, ',')
+END;
+
+UPDATE characters
+SET
+  eye = ARRAY(
+    SELECT trim(x)
+    FROM unnest(eye) AS x
+  ),
+  hair = ARRAY(
+    SELECT trim(x)
+    FROM unnest(hair) AS x
+  ),
+  occupation = ARRAY(
+    SELECT trim(x)
+    FROM unnest(occupation) AS x
+  ),
+  affliation = ARRAY(
+    SELECT trim(x)
+    FROM unnest(affliation) AS x
+  ),
+  power = ARRAY(
+    SELECT trim(x)
+    FROM unnest(power) AS x
+  );

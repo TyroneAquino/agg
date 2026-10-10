@@ -8,9 +8,7 @@ a new screen, so keeping it current helps you more than it helps anyone reading.
 that *shows* your palette, type scale, spacing and components, put it in
 `assets/`, and link it here:
 
-```markdown
-![Design system](assets/Design System.png)
-```
+![Design system](assets/design-system.png)
 
 ## Palette
 
@@ -85,4 +83,11 @@ that *shows* your palette, type scale, spacing and components, put it in
 | MinigameButton | minigame_button.dart | MinigameType minigame <br> GameState gameState | All screens |
 | Textbox | textbox.dart | MinigameType minigame <br> List<String> names <br> ValueChanged<String> onSubmit | All minigame screens |
 | TopInterface | top_interface.dart | MinigameType minigame <br> PlayerStats stats | All minigame screens |
+
 ## Changes since the last version
+
+| Element | Before | Now | Why it changed |
+| --- | --- | --- | --- |
+| Palette | 15 handpicked colors | 7 handpicked colors, 3 color changes, 3 new colors, removed 5, now in a total of 13 colors | The 3 changed colors failed the contrast test, so I changed it, added 3 new colors for the app and kept the remaining important for the app |
+| Spacing | Not specified | 7 spacing | To maintain a uniform setup |
+| Component | Box components only | 10 components | Instead of creating a reusable card I created 10 reusable component that could be used by the app |
