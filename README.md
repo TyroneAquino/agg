@@ -1,7 +1,7 @@
 # A.GG
 
 **Live demo:** https://tyroneaquino.github.io/agg/ <br>
-**Demo video:** `docs/demo.mp4` <br>
+**Demo video:** [`demo.mp4`](docs/05-demo-video.md) <br>
 **Course:** Applications Development and Emerging Technologies (6ADET), Holy Angel University <br>
 **Author:** Aquino, Tyrone Andrei C. <br>
 
@@ -9,11 +9,9 @@
 
 ## Screenshots
 
-```markdown
 | Home | Anime | Character | Soundtrack |
 | --- | --- | --- | --- |
 | ![Home](docs/assets/main-screen.png) | ![Anime](docs/assets/anime-minigame.png) | ![Character](docs/assets/character-minigame.png) | ![Soundtrack](docs/assets/soundtrack-minigame.png) |
-```
 
 ## What it does
 
