@@ -89,10 +89,6 @@ class _AnimeScreenState extends State<AnimeScreen>{
       });
 
       //checking
-
-      print('DAILY LIST: ${dailyList.length}');
-      print('ANSWER: ${dailyAnswer.name}');
-      print('ANSWER: ${practiceAnswer.name}');
     
     }catch(e){
       print('Failed to initialize anime game: $e');
@@ -174,14 +170,6 @@ class _AnimeScreenState extends State<AnimeScreen>{
         });
 
         await ProgressRepository.save(widget.gameState);
-
-          debugPrint('========== DAILY ANIME GUESS ==========');
-          debugPrint('Guess: ${anime.name}');
-          debugPrint('Answer: ${answer.name}');
-          debugPrint('Correct: $isCorrect');
-          debugPrint('Attempt: $nextAttempt');
-          debugPrint('Game over: $isGameOver');
-          debugPrint('Daily completed: ${widget.gameState.dailyAnimeCompleted}',);
 
         if(!isGameOver) return;
 

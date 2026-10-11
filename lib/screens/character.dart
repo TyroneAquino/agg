@@ -89,9 +89,6 @@ class _CharacterScreenState extends State<CharacterScreen>{
       });
 
       //checking
-      print('DAILY LIST: ${dailyList.length}');
-      print('ANSWER: ${dailyAnswer.name}');
-      print('ANSWER: ${practiceAnswer.name}');
     
     }catch(e){
       print('Failed to initialize character game: $e');
@@ -367,19 +364,4 @@ class _CharacterScreenState extends State<CharacterScreen>{
     );
   }
 
-/* void handleGuess(String guess) {
-  print('GUESS: $guess');
-  print('ANSWER: ${widget.gameState.characterAnswer?.name}');
-
-  final isCorrect =
-      guess.trim().toLowerCase() == widget.gameState.characterAnswer?.name.toLowerCase();
-
-  ScaffoldMessenger.of(context).showSnackBar(
-    SnackBar(
-      content: Text(
-        isCorrect ? 'Correct!' : 'Try Again',
-      ),
-    ),
-  );
-} */
 }

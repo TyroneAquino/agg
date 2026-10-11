@@ -50,24 +50,14 @@ class _SoundtrackScreenState extends State<SoundtrackScreen>{
         DailyAnswerRepository.getYesterdaySoundtrackAnswer(),
       ]);
 
-      debugPrint('REPOSITORY NAMES: ${results.length}');
-      debugPrint('REPOSITORY SAMPLE: ${results.take(5).toList()}');
-
       final names = results[0] as List<String>;
-      debugPrint('REPOSITORY NAMES COUNT: ${names.length}');
-      debugPrint('REPOSITORY SAMPLE: ${names.take(5).toList()}');
       Set<String> uniqueNames = names.toSet(); 
       final finalNames = uniqueNames.toList();
-      debugPrint('UNIQUE NAMES COUNT: ${finalNames.length}');
       final dailyAnswer = results[1] as Soundtrack;
       final practiceAnswer = results[2] as Soundtrack;
-      debugPrint('Daily Answer: ${dailyAnswer.anime}');
-      debugPrint('Practice Answer: ${practiceAnswer.anime}');
       final user = Supabase.instance.client.auth.currentUser;
       final yesterday = results[3] as Soundtrack;
 
-      debugPrint('CURRENT USER: ${user?.id}');
-      debugPrint('CURRENT SESSION: ${Supabase.instance.client.auth.currentSession != null}');
       final allStats = await StatsRepository.loadAll();
       final soundtrackStats = allStats[StatsRepository.soundtrackDaily]!;
       
@@ -75,14 +65,6 @@ class _SoundtrackScreenState extends State<SoundtrackScreen>{
 
       setState(() {
         animeNames = List<String>.from(finalNames);
-
-        debugPrint('REPOSITORY NAMES COUNT: ${names.length}');
-        debugPrint('REPOSITORY SAMPLE: ${names.take(5).toList()}');
-
-        debugPrint('FINAL NAMES: ${finalNames.length}');
-        debugPrint('INITIALIZED FLAG: ${widget.gameState.soundtrackNamesInitialized}');
-        debugPrint('SHARED DAILY BEFORE: ${widget.gameState.dailySoundtrackNames.length}');
-        debugPrint('SHARED PRACTICE BEFORE: ${widget.gameState.practiceSoundtrackNames.length}');
 
         // Initialize shared choices if they haven't been initialized
         // OR if the existing lists are unexpectedly empty.
@@ -120,9 +102,6 @@ class _SoundtrackScreenState extends State<SoundtrackScreen>{
         isLoading = false;
       });
     }
-    debugPrint('INITIALIZATION COMPLETE');
-    debugPrint('DAILY LIST: ${dailyList.length}');
-    debugPrint('PRACTICE LIST: ${practiceList.length}');
   }
 
   Future<void> showCompletionDialog(DialogType dialogType, {Future<void> Function()? playAgain}) async {
