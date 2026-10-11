@@ -1,11 +1,12 @@
 {
-  "name": "My Final Project",
-  "short_name": "Final Project",
+  "name": "A.GG",
+  "short_name": "A.GG",
   "start_url": ".",
   "display": "standalone",
-  "background_color": "#FFFFFF",
-  "theme_color": "#6750A4",
+  "background_color": "#05070F",
+  "theme_color": "#0A0F1E",
   "description": "My 6ADET final project.",
   "orientation": "portrait-primary",
-  "prefer_related_applications": false
+  "prefer_related_applications": false,
+  "icons":[{"src":"/android-chrome-192x192.png","sizes":"192x192","type":"image/png"},{"src":"/android-chrome-512x512.png","sizes":"512x512","type":"image/png"}]
 }

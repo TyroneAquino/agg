@@ -5,6 +5,7 @@
 **Course:** Applications Development and Emerging Technologies (6ADET), Holy Angel University <br>
 **Author:** Aquino, Tyrone Andrei C. <br>
 
+[![Made with AI](https://img.shields.io/badge/Made_with-AI_assistance-blue)](docs/AI-USAGE.md)
 ---
 
 ## Screenshots
@@ -59,7 +60,7 @@ Three to five bullets. What can a user actually do?
 git clone https://github.com/TyroneAquino/agg.git
 cd agg 
 flutter pub get
-flutter run flutter run -d chrome --web-port 5000 --dart-define=SUPABASE_URL=your_supabase_url --dart-define=SUPABASE_PUBLISHABLE_KEY=your_supabase_publishable_key 
+flutter run -d chrome --web-port 5000 --dart-define=SUPABASE_URL=your_supabase_url --dart-define=SUPABASE_PUBLISHABLE_KEY=your_supabase_publishable_key 
 ```
 - *Running the app on port 5000 allows you to save progress, run -d chrome usually generate random instance of A.GG*
 - *Replace your_supabase_url and your_supabase_publishable_key with your actual keys.*
@@ -84,7 +85,7 @@ See [security-and-privacy](docs/06-security-and-privacy.md).
 | [Design system](docs/03-design-system.md) | colors, type, spacing, components |
 | [Weekly reports](docs/04-weekly-reports.md) | what happened each week |
 | [Demo video](docs/05-demo-video.md) | the recording and what it shows |
-| [Security and privacy](docs/06-security-and-privacy.md) | the checklist, filled in |
+| [Security and privacy](docs/06-security-and-privacy.md) | the checklist |
 
 ## Status and what is next
 
@@ -109,7 +110,8 @@ See [security-and-privacy](docs/06-security-and-privacy.md).
 
 ## AI use
 
-For AI use, see [AI-USAGE.md](docs/AI-USAGE.md).
+AI is used to make the right structure, confirm structure, provide source code and give source code.
+For more information, see [AI-USAGE.md](docs/AI-USAGE.md).
 
 ## Licence
 

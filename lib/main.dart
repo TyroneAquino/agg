@@ -61,7 +61,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'My Final Project',
+      title: 'A.GG',
       debugShowCheckedModeBanner: false,
 
       // These two lines are what make the DevicePreview toolbar actually
@@ -73,7 +73,7 @@ class MyApp extends StatelessWidget {
       // Material palette; swap in your own and every screen follows.
       theme: ThemeData(
         useMaterial3: true,
-        colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFF6750A4)),
+        colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFF0A0F1E)),
       ),   
 
       home: signedIn ? const HomeScreen() : const _ConnectionErrorScreen(),

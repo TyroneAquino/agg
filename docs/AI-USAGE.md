@@ -4,8 +4,6 @@
 
 ### 1. How I used AI (35 points)
 
-At least six entries. One per real use. Each entry says:
-
 - July 30, 2026 ChatGPT
 - I asked for a theme for a anime-based guessing game with three minigames.
 - One of the suggestion is a arcade style theme with 15 colors and 2 fonts.
@@ -57,7 +55,7 @@ At least six entries. One per real use. Each entry says:
 - September 28 2026, ChatGPT
 - How to save progress by the device instead of creating an account.
 - It gave a full on auth repository that connects the stats to the database.
-- I kept the entire code.
+- I kept the entire code and sql.
 - **[a link to the commit where that work landed](https://github.com/TyroneAquino/agg/commit/e232008e99493e23de0d52ba735f3e9ad8b3464c)**
 
 - September 29 2026, ChatGPT
@@ -103,14 +101,6 @@ At least six entries. One per real use. Each entry says:
 - **[a link to the commit where that work landed](https://github.com/TyroneAquino/agg/commit/94640db24e2a8a3f89df041f5dc561b1690ee726)**
 
 ### 2. Where the AI got it wrong (25 points)
-
-Three times the AI gave you something wrong, unsafe, out of date, or just worse
-than what you did instead. For each one: what it gave you, what was wrong with
-it, what you did instead, and the commit link.
-
-This section is worth real points because it is the hard part. Taking good code
-is not a skill. Catching bad code is. If you write that the AI was never wrong,
-this section scores zero, so do not be tempted.
 
 - I asked for a device switch system.
 - It gave me an account system instead. 
@@ -177,17 +167,17 @@ In all minigame screens, I wrote the overall structure of the widgets and wrote 
 - soundtrack.dart: [COMMIT](https://github.com/TyroneAquino/agg/commit/94640db24e2a8a3f89df041f5dc561b1690ee726)
 - anime.dart: [COMMIT](https://github.com/TyroneAquino/agg/commit/94640db24e2a8a3f89df041f5dc561b1690ee726)
 
-What AI wrote that I understand the best. 
-In anime screen AI wrote the initializaGame() function, since the game requires queries from the database to function, the initialize game made sure that all variables have data and aligns with the data that I initialize. This function has been reuse by the other two minigames.
-Before initializing the game there must be six variables that must be initialize the original names, practice names, daily names, player stats, yesterday's answer and isLoading.
-First, isLoading is a bool and is set to true.
-Second the program calls the function runs four request at once to get the original name, the daily answer, the practice answer and yesterday's answer.
-Third, since the program has four request the resulting object is an array, then the code explicitly casts each item back into its specific data type so Dart knows how to treat them.
-Fourth, it fetchs the the overall stats of the player across three minigame and extracts the specific stats for the anime minigame.
-Fifth, mounted check
-Sixth, in the setState it checks if the game has been initialized already, if it hasnt the original name from the previous request is put into the gameState list of practice names and daily names
-Seventh, since the gameState no has values, these values can now be put into the initialize value of practice names and daily names.
-Eighth, then the received item in the previous request can now be put into gameState and the yesterday answer which is an Anime Object can now set its name to yesterday's answer.
-Ninth, isLoading is set to false, and the screen can now load properly without any runtime errors.
+**What AI wrote that I understand the best.** <br>
+In anime screen AI wrote the initializaGame() function, since the game requires queries from the database to function, the initialize game made sure that all variables have data and aligns with the data that I initialize. This function has been reuse by the other two minigames. <br>
+Before initializing the game there must be six variables that must be initialize the original names, practice names, daily names, player stats, yesterday's answer and isLoading. <br>
+First, isLoading is a bool and is set to true. <br>
+Second the program calls the function runs four request at once to get the original name, the daily answer, the practice answer and yesterday's answer. <br>
+Third, since the program has four request the resulting object is an array, then the code explicitly casts each item back into its specific data type so Dart knows how to treat them. <br>
+Fourth, it fetchs the the overall stats of the player across three minigame and extracts the specific stats for the anime minigame. <br>
+Fifth, mounted check <br>
+Sixth, in the setState it checks if the game has been initialized already, if it hasnt the original name from the previous request is put into the gameState list of practice names and daily names <br>
+Seventh, since the gameState no has values, these values can now be put into the initialize value of practice names and daily names. <br>
+Eighth, then the received item in the previous request can now be put into gameState and the yesterday answer which is an Anime Object can now set its name to yesterday's answer. <br>
+Ninth, isLoading is set to false, and the screen can now load properly without any runtime errors. <br>
 [COMMIT](https://github.com/TyroneAquino/agg/commit/b373ac47eac00000b09eef11681aa18b0248e425)
 
