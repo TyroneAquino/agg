@@ -8,7 +8,6 @@ import 'package:agg/models/soundtrack_class.dart';
 import 'package:agg/repositories/soundtrack_repository.dart';
 import 'package:agg/models/player_stats.dart';
 import 'package:agg/repositories/stats_repository.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:agg/repositories/progress_repository.dart';
 
 class SoundtrackScreen extends StatefulWidget {
@@ -55,7 +54,6 @@ class _SoundtrackScreenState extends State<SoundtrackScreen>{
       final finalNames = uniqueNames.toList();
       final dailyAnswer = results[1] as Soundtrack;
       final practiceAnswer = results[2] as Soundtrack;
-      final user = Supabase.instance.client.auth.currentUser;
       final yesterday = results[3] as Soundtrack;
 
       final allStats = await StatsRepository.loadAll();
